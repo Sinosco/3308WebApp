@@ -1,0 +1,115 @@
+/*  You can only use the "slash star ... star slash" style comment inside a style sheet */
+
+html,
+body {
+    /* Prevents tiny white border inside browser window. */
+    /* comma between selectors means apply styling to both the html tag and the body tag */
+    margin: 0rem;
+    padding: 0rem;
+}
+
+body {
+    background-color: rgb(193, 192, 146);
+    /* red, green, blue (255 is max)
+                                                    this is the turqoise color */
+    color: black;
+    /* color of font */
+    font-family: sans-serif;
+    /* "no tail" font is more readable for small font */
+}
+
+#title {
+    /* titleNav is fixed, always at the top. # means apply to id titleNav*/
+
+    /* position fixed removes the element from the normal flow, 
+            placing it w.r.t. the browser's edge as specified by top/bottom, left/right */
+    position: fixed;
+    top: 0rem;
+    left: 0rem;
+    z-index: 1;
+    /* To make sure titleNav is on top of content, 
+                            give it a higher z-index than content 
+                            (which has the default value, zero). */
+    width: 100%;
+    /* fixed elements are not 100% by default like other divs would be */
+
+    font-family: serif;
+    letter-spacing: 0.1rem;
+    /* spaces out letters a bit */
+    color: white;
+    /* font color */
+    background-color: rgb(110, 88, 71);
+    padding: 0.5rem;
+}
+
+#pageTitle {
+    font-size: 3rem;
+}
+
+#nav {
+    text-align: right;
+    font-size: 1rem;
+    font-weight: bold;
+    padding-right: 1rem;
+    padding-bottom: 0.75rem;
+    white-space: nowrap;
+    /* nothing (no text) in the nav bar should wrap */
+}
+
+#nav * {
+    /* we want ALL DOM elements inside of #nav to not wrap */
+    white-space: inherit;
+}
+
+#nav a {
+    /* space means inside of. This styling applies to links (a tags) inside of id nav */
+    text-decoration: none;
+    /* Do not want links in "nav" to be underlined */
+    color: #C8C8C8;
+    /* light gray: to specify color for links, you have to style the "a" tag */
+}
+
+#nav .navLink {
+    /* dot means class. This styling applies to class "navLink" inside of id "nav" */
+    background-color: #5c6b47;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+#content {
+    /* Add padding top to prevent titleNav from covering up top of content. 
+                    add padding bottom to prevent bottom content from getting hidden under footer. */
+    padding: 1rem;
+    padding-top: 6rem;
+    /* prevent the top of the content from getting hidden under the fixed titleNav */
+    padding-bottom: 2rem;
+    /* prevent the the bottom of the content from getting hidden under the fixed footer */
+}
+
+
+.contentPic {
+    width: 50%;
+    border-radius: 0.5rem;
+    /*box-shadow: 0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.6);
+    /* color is black which is 60% solid */
+}
+
+.center {
+    text-align: center;
+}
+
+#footer {
+    /* footer fixed, always at the bottom left */
+    position: fixed;
+    bottom: 0rem;
+    left: 0rem;
+    z-index: 1;
+    /* make sure footer is on top of content which would have default z-index value of 0 */
+
+    background-color: rgb(110, 88, 71);
+    color: white;
+    width: 100%;
+    /* fixed elements are not 100% by default like other divs would be */
+    text-align: center;
+    padding: 0.5rem;
+}
