@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Controller {
     @GetMapping("hello")
     public String helloController() {
-        return "<h1>Hello World</h1>";
+        return "<h1>Shaikh J Ahmed tup53806 from CIS3808 Lec:TTR Lab:F doing a minecraft website for some reason</h1>";
     }
     
 }
