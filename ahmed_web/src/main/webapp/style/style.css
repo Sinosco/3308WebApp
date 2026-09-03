@@ -9,7 +9,7 @@ body {
 }
 
 body {
-    background-color: rgb(193, 192, 146);
+    background-color: #C3B091;
     /* red, green, blue (255 is max)
                                                     this is the turqoise color */
     color: black;
@@ -18,7 +18,7 @@ body {
     /* "no tail" font is more readable for small font */
 }
 
-#title {
+#titleNav {
     /* titleNav is fixed, always at the top. # means apply to id titleNav*/
 
     /* position fixed removes the element from the normal flow, 
@@ -32,27 +32,42 @@ body {
                             (which has the default value, zero). */
     width: 100%;
     /* fixed elements are not 100% by default like other divs would be */
-
     font-family: serif;
     letter-spacing: 0.1rem;
     /* spaces out letters a bit */
     color: white;
     /* font color */
     background-color: rgb(110, 88, 71);
-    padding: 0.5rem;
+    padding: 1rem;
+
+    display: flex; 
+    flex-direction: column;
+}
+
+@media (min-width:40rem) {
+    #titleNav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+    }
 }
 
 #pageTitle {
     font-size: 3rem;
+    white-space: nowrap;
+    margin-bottom: 0.25rem;
+    margin-left: .5rem;
+    justify-content:left;
 }
 
 #nav {
     text-align: right;
     font-size: 1rem;
     font-weight: bold;
-    padding-right: 1rem;
-    padding-bottom: 0.75rem;
+    padding-right: 2rem;
     white-space: nowrap;
+    justify-content:right;
     /* nothing (no text) in the nav bar should wrap */
 }
 
@@ -74,7 +89,13 @@ body {
     background-color: #5c6b47;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    text-decoration: none;
 }
+
+#nav a:link { color:#800080;}
+#nav a:visited { color:#000080; }
+#nav a:hover {color: #50404d ;}
+
 
 #content {
     /* Add padding top to prevent titleNav from covering up top of content. 
@@ -88,7 +109,7 @@ body {
 
 
 .contentPic {
-    width: 50%;
+    width: 25%;
     border-radius: 0.5rem;
     /*box-shadow: 0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.6);
     /* color is black which is 60% solid */
