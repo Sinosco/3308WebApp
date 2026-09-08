@@ -1,0 +1,32 @@
+.obj_CGF {
+    line-height: 1.2rem;
+}
+
+.obj_CGF p {
+    margin: 0.5rem;
+    margin-left: 3rem;
+}
+
+.obj_CGF h3,
+.obj_CGF ul {
+    margin: 0.5rem;
+}
+
+.obj_CGF .codeImg {
+    height: 1.75rem;
+}
+
+.obj_CGF .flexBoxC {
+    display: flex;
+    flex-direction: row;
+    background-color: grey;
+    border-radius: 0.5rem;
+    padding: 0rem;
+}
+
+.obj_CGF .flexBoxC .obj {
+    width: 33%;
+    /* to fit three columns inside the flexContainer */
+    box-sizing: border-box;
+    /* counts padding and border as part of the width of the DOM elemnt */
+}

@@ -1,87 +1,149 @@
 <!DOCTYPE html>
+<!-- HTML comments like this... -->
 <html>
 
 <head>
+    <title>Title Nav Using Flexbox</title>
 
-    <!-- Use this type of comment within HTML -->
-    <title>MCSR Tracker</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style/style.css">
-    <!-- this is your internal style sheet -->
+
+    <link rel="icon" type="image/x-icon" href="icons/more_icons/music_notes.png">
+
+    <link href="style/blog.css" rel="stylesheet" type="text/css" />
+    <link href="style/dropDown.css" rel="stylesheet" type="text/css" />
+    <link href="style/home.css" rel="stylesheet" type="text/css" />
+    <link href="style/main.css" rel="stylesheet" type="text/css" />
+    <link href="style/myDropDown.css" rel="stylesheet" type="text/css" />
+    <link href="style/obj_CGF.css" rel="stylesheet" type="text/css" />
+    <link href="style/obj.css" rel="stylesheet" type="text/css" />
+    <link href="style/style.css" rel="stylesheet" type="text/css" />
+
+    <!-- By referencing the Babel CDN, we can use JSX (HTML tags in JavaScript) 
+         Asking for the latest minor version of babel major version 7. -->
+    <script crossorigin src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+
+    <!-- This import Map defines nicknames for long URLs. -->
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@19",
+        "react-dom/client": "https://esm.sh/react-dom@19/client",
+        "react-router-dom": "https://esm.sh/react-router-dom@6?deps=react@19"
+      }
+    }
+    </script>
 
     <style>
-        .serverLink {
-            color: #221C35;
-            text-decoration: none;
-            white-space: nowrap;
-        }
-        .serverLink:hover {
-            color: #630436;
-        }
-        .serverLink:visited {
-            color: white;
-        }
-
     </style>
+
 </head>
 
 <body>
+    <div id="root"></div>
 
-    <div id="titleNav">
 
-        <div id="pageTitle">
-            MCSR Tracker
-        </div>
+    <!-- Put JS reusable first (these are called by CGFs or by the page like the dropDown FW). -->
+    <script src="_JS_reusable/dropDownFW.js"></script>
+    <script src="_JS_reusable/MakeObj.js"></script>
 
-        <div id="nav">
-            <a href="myIndex.html" class="navLink">Home</a>
-            <a href="blog.html" class="navLink">Blog</a>
-            <a href="blog.html" class="navLink">Blog</a>
-            <a href="blog.html" class="navLink">Blog</a>
-            <a href="blog.html" class="navLink">Blog</a>
-            <a href="blog.html" class="navLink">Blog</a>
- 
-        </div>
+    <!-- JS Content Generating functions (these are called by the router). -->
+    <script src="_JS_CGF/MakeObj_CGF.js"></script>
 
-    </div>
+    <!-- React reusable (these are called by CGFs). -->
+    <script type="text/babel" src="_React_reusable/ConvertEle.jsx"></script>
 
-    <div id="content">
+    <!-- React Content Generating functions (these are called by the router) -->
+    <script type="text/babel" src="_React_CGF/HomeR.jsx"></script>
+    <script type="text/babel" src="_React_CGF/BlogR.jsx"></script>
 
-        <h1 style="white-space: nowrap;">A Simple Way To Track Your Progress</h1>
-        <p>
-            Speedrunning any game is a journey of wins, losses, struggling and learning. 
-            Track best runs and see how you are improving! 
-            Export your data into a plot to visualize how much you have grown since the beginning! 
-            Track your nether, stronghold, and end enters, starting structure, and bastion type!
-        </p>
-            <p class="center">
-            <img src="pics/grassBlock.png" class="contentPic">
-        </p>
+    <!-- Any React scripts (which typically have JSX) needs script type="text/babel" -->
 
-        <h2>Devblog 09/01: </h2>
-        <h3>Proposed Database Table: Numerical tracking of 3 different enter times (time format),
-            string tracking starting structure and bastion type. Describe several key moments in a speedrun.
-        </h3>
+    <script type="text/babel" data-type="module">
 
-        <ul>
-            <li>Nether time: Time Format numerical</li>
-            <li>Stronghold time: Time Format numerical</li>
-            <li>End time: Time Format numerical</li>
-            <li>Starting structure: String</li>
-            <li>Bastion type: String</li>
-        </ul>
+        //"use strict";
 
-        <h3>Server Page</h3><p>Click <a href="hello" target="_blank" style="white-space: nowrap;" class="serverLink">here</a> to see my published Server Side Page. </p>
-        
-        <h3>My Database Experience:</h3><p> No experience coding one, but I do interact with one at work made by some college kids 20 years ago (its not great).</p>
-        <h3>My Web Development Experience:</h3> <p>I was a co-leader of my highschool Computer Science Club where we taught our members very rudimentary web development skills like basic HTML, CSS, and JS functionality. We would use premade tutorials and customize it to our needs. Never did anything more beyond that.</p>
-        <h3>HW 1 Home Page</h3> <p>I had trouble getting started, I decided to upload everything to github so I can work on my main desktop and laptop whenever, but then it somehow broke the server's abililty to access my index.html on local host. I have it working now, I basically just reset everything to how it was before I did git init. Beyond that this assignment was fairly simple. Seeing the h3 and p elements on the page is already giving me ideas for how this could get developed further and how other websites are actually fairly simple, they just have a bit more touchup. I had a bit more trouble dealing positioning the navbar but I didn't have too much difficulty after fiddling around with it.</p>
-    
-    </div> <!-- content. [[Keep track of nesting]] -->
-    <div id="footer">
-        Shaikh Ahmed
-    </div>
+
+        import React from "react";
+        import ReactDOM from "react-dom/client";
+        import { HashRouter, Routes, Route, NavLink } from "react-router-dom";
+
+        // Expose React globally so your JSX files can use it
+        window.React = React;
+
+        dropDownFW({
+            dropHeaderStyle: "dropHeader",
+            dropContentStyle: "dropContent",
+            showStyle: "show",
+            hideStyle: "hide"
+        });
+
+
+        const App = () => (
+            <HashRouter>
+
+                <div id="titleNav">
+                    <div id="title">
+                        Website Title
+                    </div>
+                    <div id="nav">
+                        <div class="dropDown">
+                            <NavLink to="/home">Home</NavLink>
+                        </div>
+                        <div class="dropDown">
+                            <div class="dropHeader">Account</div>
+                            <div class="dropContent">
+                                <NavLink to="/register">Register</NavLink> <br />
+                                <NavLink to="/login">Log In</NavLink> <br />
+                                <NavLink to="/logout">Log Out</NavLink> <br />
+                                <NavLink to="/profile">Get Profile</NavLink> <br />
+                            </div>
+                        </div>
+
+                        <div class="dropDown">
+                            <div class="dropHeader">Search</div>
+                            <div class="dropContent">
+                                <NavLink to="/usersReact">User List</NavLink> <br />
+                                <NavLink to="/otherReact">[Other] List</NavLink> <br />
+                            </div>
+                        </div>
+
+                        <div class="dropDown">
+                            <div class="dropHeader">Homework</div>
+                            <div class="dropContent">
+                                <NavLink to="/blog">Blog</NavLink> <br />
+                                <a target="_blank" href="docs/DB_proposal.pdf">My DB PDF</a> <br />
+                                <NavLink to="/myObj">JS Object Component (sample)</NavLink> <br />
+                                <a target="_blank" href="webUser/getAll">All Users Web API</a> <br />
+                                <a target="_blank" href=".../getAll">All [Others] Web API</a> <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content">
+                    <Routes>
+                        <Route path="/" element={<HomeR />} />
+                        <Route path="/home" element={<HomeR />} />
+                        <Route path="/myObj" element={<ConvertEle ele={MakeObj_CGF()} />} />
+                        <Route path="/blog" element={<BlogR />} />
+                    </Routes>
+                </div>
+
+                <div id="footer">
+                    Shaikh J Ahmed
+                </div>
+
+            </HashRouter>
+        );
+
+        // Create myRoot, a "React Root" (with a UI that React will "manage") 
+        // in the the <div> with id "my-root". 
+        const myRoot = ReactDOM.createRoot(document.getElementById("root"));
+        myRoot.render(<App />);
+
+    </script>
+
 </body>
 
 </html>
