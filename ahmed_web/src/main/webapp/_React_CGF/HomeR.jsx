@@ -7,24 +7,17 @@ function HomeR() {
                 Home is Where the Heart Is
             </h4>
 
+                <h1 style="white-space: nowrap;">A Simple Way To Track Your Progress</h1>
             <p>
-                This is where you put your "marketing material" (where you
-                explain what your web application offers and you entice users
-                to engage with it).
+                Speedrunning any game is a journey of wins, losses, struggling and learning. 
+                Track best runs and see how you are improving! 
+                Export your data into a plot to visualize how much you have grown since the beginning! 
+                Track your nether, stronghold, and end enters, starting structure, and bastion type!
             </p>
-            <p>
-                For your "other" database table (that you have designed
-                but may want to alter this week), don't just make it be
-                a boring list of attributes. Make your data interesting
-                so that people will want to visit your site and contribute
-                data.
+                <p class="center">
+                <img src="../pics/grassBlock.png" class="contentPic"> </img>
             </p>
-            <p>
-                Make sure that your "marketing material" aligns with your 
-                your "other" database table. Don't say that your web site 
-                offers something that it does not (based on the design 
-                of your "other" database table). 
-            </p>
+
         </div>
     );
 }
