@@ -13,6 +13,8 @@ function HomeR() {
                 Export your data into a plot to visualize how much you have grown since the beginning! 
                 Track your nether, stronghold, and end enters, starting structure, and bastion type!
             </p>
+
+            <p class="center"><img src="pics/grassBlock.png" class="center"/></p>
         </div>
     );
 }

@@ -21,7 +21,7 @@ function BlogR() {
             <h3>My Web Development Experience:</h3> <p>I was a co-leader of my highschool Computer Science Club where we taught our members very rudimentary web development skills like basic HTML, CSS, and JS functionality. We would use premade tutorials and customize it to our needs. Never did anything more beyond that.</p>
             <h3>HW 1 Home Page</h3> <p>I had trouble getting started, I decided to upload everything to github so I can work on my main desktop and laptop whenever, but then it somehow broke the server's abililty to access my index.html on local host. I have it working now, I basically just reset everything to how it was before I did git init. Beyond that this assignment was fairly simple. Seeing the h3 and p elements on the page is already giving me ideas for how this could get developed further and how other websites are actually fairly simple, they just have a bit more touchup. I had a bit more trouble dealing positioning the navbar but I didn't have too much difficulty after fiddling around with it.</p>
 
-            <h3>Server Page</h3><p>Click <a href="hello" target="_blank" >here</a> to see my published Server Side Page. </p>
+            <h3>Server Page</h3><p>Click <a href="hello" target="_blank" class="serverLink" >here</a> to see my published Server Side Page. </p>
 
         </div>
     );

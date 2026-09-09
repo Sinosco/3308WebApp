@@ -82,6 +82,7 @@ body {
     /* Do not want links in "nav" to be underlined */
     color: #C8C8C8;
     /* light gray: to specify color for links, you have to style the "a" tag */
+
 }
 
 #nav .navLink {
@@ -94,14 +95,14 @@ body {
 
 #nav a:link { color:#800080;}
 #nav a:visited { color:#000080; }
-#nav a:hover {color: #50404d ;}
+#nav a:hover {color: #FBF9F3 ;}
 
 
 #content {
     /* Add padding top to prevent titleNav from covering up top of content. 
                     add padding bottom to prevent bottom content from getting hidden under footer. */
     padding: 1rem;
-    padding-top: 6rem;
+    padding-top: 0.5rem;
     /* prevent the top of the content from getting hidden under the fixed titleNav */
     padding-bottom: 2rem;
     /* prevent the the bottom of the content from getting hidden under the fixed footer */

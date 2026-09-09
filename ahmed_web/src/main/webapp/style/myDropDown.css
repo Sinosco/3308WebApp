@@ -80,3 +80,5 @@ dropDown .dropContent {
 .dropDown .hide {
     right:-50rem; /* hide the submenu "off the right of the screen" by 50 rems */
 }
+
+.dropDown:hover{ color:#FBF9F3; }
