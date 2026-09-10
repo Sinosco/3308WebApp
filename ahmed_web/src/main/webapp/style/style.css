@@ -94,10 +94,9 @@ body {
     text-decoration: none;
 }
 
-#nav a:link { color:#800080;}
-#nav a:visited { color:#000080; }
+#nav a:link { color:#211a15;}
+#nav a:visited { color:#50404d; }
 #nav a:hover {color: #FBF9F3 ;}
-
 
 #content {
     /* Add padding top to prevent titleNav from covering up top of content. 

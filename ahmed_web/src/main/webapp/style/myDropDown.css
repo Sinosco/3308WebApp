@@ -20,10 +20,10 @@
 }
 
 .dropDown, .dropDown a { /* comma between selectors means apply that styling to both selectors */
-    color: black;
+    color: #211a15;
 }
 
-dropDown .dropContent {
+.dropDown .dropContent {
     font-size: 0.85rem;
     line-height: 1.25rem;
     margin-top: 0.5rem;
@@ -81,4 +81,4 @@ dropDown .dropContent {
     right:-50rem; /* hide the submenu "off the right of the screen" by 50 rems */
 }
 
-.dropDown:hover{ color:#FBF9F3; }
+.dropDown :hover{ color: #FBF9F3; }
