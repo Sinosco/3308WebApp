@@ -3,10 +3,11 @@
 function MakeObj({
     spawnStruct = "Untitled",
     spawnStructImg = "invalid.png", // image will show default icon if not provided by consumer
-    netherTime = "No time provided",
+    netherTime = 0,
     bastionType = "No bastion type provided",
-    strongholdTime = "No time provided",
-    finalTime = "No time Provided"
+    strongholdTime = 0,
+    finalTime = 0,
+    reflect = "No improvements"
     } = {} // if the consumer passes no object at all, it will act as if an empty object was passed.
     ) { 
 
@@ -14,26 +15,33 @@ function MakeObj({
     ele.classList.add("obj"); // adds styling to ele - see obj.css rules for ".obj"
 
     ele.spawnStruct = spawnStruct; ele.spawnStructImg = spawnStructImg; ele.netherTime = netherTime; 
-    ele.bastionType = ele.bastionType; ele.strongholdTime = strongholdTime; ele.finalTime = finalTime;
+    ele.bastionType = bastionType; ele.strongholdTime = strongholdTime; ele.finalTime = finalTime;
+    ele.reflect = reflect;
 
     ele.innerHTML = `
         <div class='objInfoClass'></div>
         <div class='objControls'>
+            <p class='informationText'>Enter your times in the boxes below.</p>
             <button class='netherEnterButtonClass'>Nether</button>
             <input class='netherEnterInputClass' type='text'/> <br/>
-        
+
+            Bastion Type: <select class="selectBastionTypeClass">
+                <option value="None">None Selected</option>
+                <option value="Bridge">Bridge</option>
+                <option value="Stables">Stables</option>
+                <option value="Treasure">Treasure</option>
+                <option value="Housing">Housing</option>
+            </select> <br/>
+            
             <button class='strongholdEnterButtonClass'>Stronghold</button>
             <input class='strongholdEnterInputClass' type='text'/> <br/>
 
             <button class='finalTimeButtonClass'>Finished</button>
             <input class='finalTimeInputClass' type='text'/> <br/>
-
-            Bastion Type: <select class="selectBastionTypeClass">
-                <option value="1">Bridge</option>
-                <option value="2">Stables</option>
-                <option value="3">Treasure</option>
-                <option value="4">Housing</option>
-            </select>
+                <p class='error'></p>
+            <p class='informationText'>Take some time to reflect on how you can improve. </p>
+            <button class='reflectButtonClass'>What to improve</button>
+            <input class='reflectInputClass' type='text'/> <br/>
 
         </div>
     `;
@@ -42,42 +50,59 @@ function MakeObj({
     var objInfo =               ele.getElementsByClassName("objInfoClass") [0]; 
     var netherEnterButton =     ele.getElementsByClassName("netherEnterButtonClass")[0];
     var netherEnterInput =      ele.getElementsByClassName("netherEnterInputClass")[0];
+        var selectBastionType =     ele.getElementsByClassName("selectBastionTypeClass")[0];
     var strongholdEnterButton = ele.getElementsByClassName("strongholdEnterButtonClass")[0];
     var strongholdEnterInput =  ele.getElementsByClassName("strongholdEnterInputClass")[0];
     var finalTimeButton =       ele.getElementsByClassName("finalTimeButtonClass")[0];
     var finalTimeInput =        ele.getElementsByClassName("finalTimeInputClass")[0];
 
-    var selectBastionType =     ele.getElementsByClassName("selectBastionTypeClass")[0];
+    var reflectButton =         ele.getElementsByClassName("reflectButtonClass")[0];
+    var reflectInput =          ele.getElementsByClassName("reflectInputClass")[0];
+    var error =                 ele.getElementsByClassName("error")[0];
 
     var display = function () {
         var setSpawnStructImg = "";
-        if (spawnStructImg === null) { spawnStructureImg = "<p>image not available</p>"; } 
-        else                 { spawnStructureImg = `<img src='${spawnStructImg}' alt='Picture of ${spawnStruct}' />`; }
+        if (spawnStructImg === null) { setSpawnStructImg = "<p>image not available</p>"; } 
+        else                 { setSpawnStructImg = `<img src='${spawnStructImg}' alt='Picture of ${spawnStruct}' />`; }
 
         objInfo.innerHTML = 
         `<h3>${spawnStruct}</h3>
           ${setSpawnStructImg}
           <p>
-             Nether Enter Time: ${ele.netherTime} <br/>
-             Bastion Type: ${ele.bastionType} <br/>
-             Stronghold Enter Time: ${ele.strongholdTime} <br/>
-             Final Time: ${ele.finalTime} <br/>
-
-             Salary: ${formatCurrency(empSalary)}
+             Nether Enter Time: ${ele.netherTime} minutes <br/>
+             Bastion Type: ${ele.bastionType}  <br/>
+             Stronghold Enter Time: ${ele.strongholdTime} minutes<br/>
+             Final Time: ${ele.finalTime} minutes <br/>
+             What to improve: ${ele.reflect} <br/>
+             - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
           </p> `;
     };
 
-    objInfo.setNetherTime =     function(newTime){ ele.netherTime =     newTime; display(); };
-    objInfo.setStrongholdTime = function(newTime){ ele.strongholdTime = newTime; display(); };
-    objInfo.setFinalTime =      function(newTime){ ele.finalTime =      newTime; display(); };
-
+    ele.setNetherTime =     function(newTime){ ele.netherTime =      addMinutes(ele.netherTime, newTime); display(); };
+    ele.setStrongholdTime = function(newTime){ ele.strongholdTime =  addMinutes(ele.strongholdTime, newTime); display(); };
+    ele.setFinalTime =      function(newTime){ ele.finalTime =       addMinutes(ele.finalTime, newTime); display(); };
+    ele.setBastionType =    function(newTime) { ele.bastionType +=   newTime; display(); };
+    ele.setReflect =        function(text) { ele.reflect +=          text;    display(); };
     display();
 
-    netherEnterButton.onclick = function() {ele.setNetherTime(netherEnterInput.value); };
-    strongholdEnterButton.onclick = function() {ele.setStrongholdTime(strongholdEnterInput.value); };
-    finalEnterButton.onclick = function() {ele.setFinalTime(finalTimeInput.value); };
-    
+    netherEnterButton.onclick = function()      {if(displayError(netherEnterInput.value));     else ele.setNetherTime(netherEnterInput.value); };
+    strongholdEnterButton.onclick = function()  {if(displayError(strongholdEnterInput.value)); else ele.setStrongholdTime(strongholdEnterInput.value); };
+    finalTimeButton.onclick = function()        {if(displayError(finalTimeInput.value));       else ele.setFinalTime(finalTimeInput.value); };
+    selectBastionType.onchange = function ()    {ele.setBastionType(selectBastionType.value)}
+    reflectButton.onclick = function()          {ele.setReflect(reflectInput.value)}
         
+    var timePattern = /^\d{1,3}:[0-5]\d$/;   
+    function displayError(input){
+        if(isNaN(input) || input.trim() === ""){error.textContent = "One or several of your adjustment times are invalid"; return true;}
+        else             error.textContent = ""
+        return false;
+    }
+
+    var addMinutes = function (current, amount) {
+        var total = Math.round((Number(current) + Number(amount)) * 100) / 100;
+        return Math.max(0, total);   // optional: stops the total from going below 0
+    };
+
 
 
     return ele;
