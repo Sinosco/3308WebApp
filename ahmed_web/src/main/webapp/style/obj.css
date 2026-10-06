@@ -14,19 +14,59 @@ To follow the CSS naming convention,
 */
 
 .obj {  /* applies to any dom element that's classed "obj" */
-    background-color: #DDDDDD; /*#AACCDD; */
+    background-color: #d4bf9d; /*#AACCDD; */
+    border: 3px solid #6e5847;
     margin: 1rem;
     text-align: center;
     border-radius:0.5rem;
+    padding: 1rem;
 }
 
-.obj h2 { /* applies to any "h2" tag that's in a class "obj" dom element */
-    margin:0.5rem;
+.obj img{
+    object-fit: contain;
+    width: 10rem;
+    height: 10rem;
+    margin: 1rem;
+    padding: 1rem;
+
+    border: 3px solid black;
+    border-radius: 1rem;
 }
 
-.obj img { /* applies to any "img" tag that's in a class "obj" dom element */
-    width:75%;
-    border-radius:0.5rem;
-    box-shadow: 0.3rem 0.3rem 0.2rem rgba(0,0,0,0.8);
-    /* box shadow: left offset, right offset, size of blur, color */
+.obj h3 {
+    margin: 0.5rem;
+}
+.obj button, 
+.obj input {
+    width: 45%;
+    padding: 0.4rem;
+    margin: 0.2rem;
+    border-radius: 0.25rem;
+    box-sizing: border-box;
+}
+
+.obj input {
+    border: 2px solid #6e5847;
+}
+
+.obj .error{
+    color: red;
+    font-size: 0.85rem;
+    margin: 0.25rem 0;
+    background-color: #fae1b9;
+    border-radius: 1rem;
+    
+}
+
+.obj .error:empty {
+    display: none;
+}
+
+.obj .informationText{
+    justify-content: left;
+
+}
+
+.obj p{
+    margin-bottom: 1rem;
 }

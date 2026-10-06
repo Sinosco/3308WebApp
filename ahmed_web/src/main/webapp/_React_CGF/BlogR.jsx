@@ -42,6 +42,9 @@ function BlogR() {
                 <p>This hw wasn't too bad, it was a little time consuming being careful with making the tables because I thought it would be annoying to fix them if I made a mistake. It turns out it was pretty easy to go back and reedit them when you haven't added any data yet. I have a feeling I can make my dates better but technically I still need the hour portion for really bad players. Filling up data cells was the most annoying part I ended up not doing a lot of that. Overall not bad just tedious</p>
             <h3>Server Page</h3><p>Click <a href="hello" target="_blank" class="serverLink" >here</a> to see my published Server Side Page. </p>
 
+            <h3>HW4 </h3>
+                <p>This lab was a lot more time consuming as there was a lot to personalize. I was kind of obsessing over the best way to lay things out. I drew out the basic layout I wanted but even then I kept messing with things, eventually I realized I was spending too much time and cut myself off. Using the lab assignment as a reference was extremely useful and kept me guided in how to implement everything. </p>
+
         </div>
     );
 }

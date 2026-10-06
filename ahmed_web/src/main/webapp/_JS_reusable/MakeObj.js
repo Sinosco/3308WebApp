@@ -2,7 +2,7 @@
 
 function MakeObj({
     spawnStruct = "Untitled",
-    spawnStructImg = "invalid.png", // image will show default icon if not provided by consumer
+    spawnStructImg = "barrier.png", // image will show default icon if not provided by consumer
     netherTime = 0,
     bastionType = "No bastion type provided",
     strongholdTime = 0,
@@ -21,17 +21,9 @@ function MakeObj({
     ele.innerHTML = `
         <div class='objInfoClass'></div>
         <div class='objControls'>
-            <p class='informationText'>Enter your times in the boxes below.</p>
+            <p class='informationText'>Adjust your times in the boxes below.</p>
             <button class='netherEnterButtonClass'>Nether</button>
             <input class='netherEnterInputClass' type='text'/> <br/>
-
-            Bastion Type: <select class="selectBastionTypeClass">
-                <option value="None">None Selected</option>
-                <option value="Bridge">Bridge</option>
-                <option value="Stables">Stables</option>
-                <option value="Treasure">Treasure</option>
-                <option value="Housing">Housing</option>
-            </select> <br/>
             
             <button class='strongholdEnterButtonClass'>Stronghold</button>
             <input class='strongholdEnterInputClass' type='text'/> <br/>
@@ -39,6 +31,15 @@ function MakeObj({
             <button class='finalTimeButtonClass'>Finished</button>
             <input class='finalTimeInputClass' type='text'/> <br/>
                 <p class='error'></p>
+            
+                Bastion Type: <select class="selectBastionTypeClass">
+                    <option value="None">None Selected</option>
+                    <option value="Bridge">Bridge</option>
+                    <option value="Stables">Stables</option>
+                    <option value="Treasure">Treasure</option>
+                    <option value="Housing">Housing</option>
+                </select> <br/>
+            
             <p class='informationText'>Take some time to reflect on how you can improve. </p>
             <button class='reflectButtonClass'>What to improve</button>
             <input class='reflectInputClass' type='text'/> <br/>
@@ -63,19 +64,18 @@ function MakeObj({
     var display = function () {
         var setSpawnStructImg = "";
         if (spawnStructImg === null) { setSpawnStructImg = "<p>image not available</p>"; } 
-        else                 { setSpawnStructImg = `<img src='${spawnStructImg}' alt='Picture of ${spawnStruct}' />`; }
+        else                 { setSpawnStructImg = `<img src='${spawnStructImg}' alt='No structure found' />`; }
 
         objInfo.innerHTML = 
         `<h3>${spawnStruct}</h3>
           ${setSpawnStructImg}
-          <p>
-             Nether Enter Time: ${ele.netherTime} minutes <br/>
-             Bastion Type: ${ele.bastionType}  <br/>
-             Stronghold Enter Time: ${ele.strongholdTime} minutes<br/>
-             Final Time: ${ele.finalTime} minutes <br/>
-             What to improve: ${ele.reflect} <br/>
+             <p>Nether Enter Time: ${ele.netherTime} minutes </p>
+             <p>Bastion Type: ${ele.bastionType}  </p>
+             <p>Stronghold Enter Time: ${ele.strongholdTime} minutes</p>
+             <p>Final Time: ${ele.finalTime} minutes </p>
+             <p>What to improve: ${ele.reflect} </p>
              - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-          </p> `;
+        `;
     };
 
     ele.setNetherTime =     function(newTime){ ele.netherTime =      addMinutes(ele.netherTime, newTime); display(); };
@@ -91,7 +91,6 @@ function MakeObj({
     selectBastionType.onchange = function ()    {ele.setBastionType(selectBastionType.value)}
     reflectButton.onclick = function()          {ele.setReflect(reflectInput.value)}
         
-    var timePattern = /^\d{1,3}:[0-5]\d$/;   
     function displayError(input){
         if(isNaN(input) || input.trim() === ""){error.textContent = "One or several of your adjustment times are invalid"; return true;}
         else             error.textContent = ""
