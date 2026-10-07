@@ -51,6 +51,12 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+				<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<!-- The version should automatically match your 2.21 annotations via Spring Boot -->
+		</dependency>
+
 	</dependencies>
 
 	<build>
