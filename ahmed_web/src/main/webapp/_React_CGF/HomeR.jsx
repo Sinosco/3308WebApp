@@ -8,16 +8,11 @@ function HomeR() {
             </h4>
 
             <p>
-                Speedrunning is the act of completing a game as fast as possible. There are many different types of speedruns, some you try 
-                and get a 100% completion, other times you just "beat" the game (however that is defined for that game), there are even joke
-                categories such as fastest to dig to the bottom layer of the world at bedrock. Even with these variations there are variations,
-                whether you are allowed to use glitches, "set seed" where you already know what route you are going to take, TAS where you use 
-                a program instead of a human, and many more.</p>
-            <p>    
-                This website specifically aims to record you best times for Random Seed Glitchless (RSG) Any%, a randomly chosen seed or world
-                that is played without knowing what that world is like and ending the time once you beat the Enderdragon, the final boss of the 
-                game. Whilst keeping track of your times, this site shows your best times for different starting structures like Buried Treasure,
-                Ruined Portal, and others. 
+                Speedrunning is the pursuit of completing a game as fast as possible. This website specifically aims to record your best times and 
+                the times of other players you are competing against, whether they be friends or professional speedrunners. The times recorded are 
+                for speedruns following the Random Seed Glitchless (RSG) Any% category. In this category seeds, or worlds, are randomly procedurely
+                generated and the player must reach the end of the game without using glitches. Analyze which runs are successful and which ones need 
+                improvement, what structures are you best at and what could you do to improve your performance? Keep track of all that here!
             </p>
 
             <p class="center"><img src="pics/grassBlock.png" class="center"/></p>

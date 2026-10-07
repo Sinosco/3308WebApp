@@ -45,6 +45,12 @@ function BlogR() {
             <h3>HW4 </h3>
                 <p>This lab was a lot more time consuming as there was a lot to personalize. I was kind of obsessing over the best way to lay things out. I drew out the basic layout I wanted but even then I kept messing with things, eventually I realized I was spending too much time and cut myself off. Using the lab assignment as a reference was extremely useful and kept me guided in how to implement everything. </p>
 
+            <h3>HW5 </h3>
+                <p>This lab was largely pretty easy, it would have been much more difficult if the professor hadn't gone over the steps we should take to fix the code. There were a lot of interconnected pieces and functions and classes you needed to call in different files that it would have been hell to configure all of it on my own. Thankfully the professor was kind enough to demo the general steps we should take. The only difficulty I had was publishing as I had gotten used to leaving the WEB_INF file alone and deleting everything else, I will now be deleting it too along with all the other files. I also had an issue merging my lab files with this hw folder but I was able to fix it by adding the com.fasterxml dependency to the pom.xml and then doing maven clean and then verify. I also had issues with having my Run Java update whenever I changed the HTML but it worked out in the end.</p>
+            <h3>Database Connections</h3>                
+                <p> Click <a href="webUser/getAll" target="_blank">here</a> to view the web users.</p>
+                <p> Click <a href="Player_Info/getAll" target="_blank">here</a> to view the database of speedruns!</p>
+
         </div>
     );
 }

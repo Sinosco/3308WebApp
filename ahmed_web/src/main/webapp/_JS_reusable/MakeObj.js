@@ -2,7 +2,7 @@
 
 function MakeObj({
     spawnStruct = "Untitled",
-    spawnStructImg = "barrier.png", // image will show default icon if not provided by consumer
+    spawnStructImg = "pics/barrier.png", // image will show default icon if not provided by consumer
     netherTime = 0,
     bastionType = "No bastion type provided",
     strongholdTime = 0,
@@ -63,8 +63,8 @@ function MakeObj({
 
     var display = function () {
         var setSpawnStructImg = "";
-        if (spawnStructImg === null) { setSpawnStructImg = "<p>image not available</p>"; } 
-        else                 { setSpawnStructImg = `<img src='${spawnStructImg}' alt='No structure found' />`; }
+        if (spawnStructImg === null) { setSpawnStructImg = `<br><img src='${pics/barrier.png}' alt='Image not available' /><br>`; } 
+        else                 { setSpawnStructImg = `<br><img src='${spawnStructImg}' alt='No structure found' /><br>`; }
 
         objInfo.innerHTML = 
         `<h3>${spawnStruct}</h3>
@@ -81,7 +81,7 @@ function MakeObj({
     ele.setNetherTime =     function(newTime){ ele.netherTime =      addMinutes(ele.netherTime, newTime); display(); };
     ele.setStrongholdTime = function(newTime){ ele.strongholdTime =  addMinutes(ele.strongholdTime, newTime); display(); };
     ele.setFinalTime =      function(newTime){ ele.finalTime =       addMinutes(ele.finalTime, newTime); display(); };
-    ele.setBastionType =    function(newTime) { ele.bastionType +=   newTime; display(); };
+    ele.setBastionType =    function(newType) { ele.bastionType =   newType; display(); };
     ele.setReflect =        function(text) { ele.reflect +=          text;    display(); };
     display();
 
