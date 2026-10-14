@@ -57,6 +57,7 @@
 
 .clickSort .textAlignRight {
     text-align: right;
+    padding-right: 0.5rem;
 }
 
 .clickSort .textAlignCenter {

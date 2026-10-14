@@ -7,7 +7,7 @@ public class StringData {
     public String Stronghold_Enter_Time = "";      // type date, optional
     public String Final_Time = ""; // type decimal, optional
     public String Starting_Structure = "";    // foreign key (integer), required by DB
-    public String BastionType = "";  // varChar, joined from user_role table.
+    public String Bastion_Type = "";  // varChar, joined from user_role table.
     public String web_user_id = "";  // varChar, joined from user_role table.
 
     public String errorMsg = "";      // not actually in the database, used by the app 

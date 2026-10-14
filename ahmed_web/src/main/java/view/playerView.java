@@ -41,7 +41,7 @@ public class playerView {
                 sd.Stronghold_Enter_Time =  Format.fmtTime   (results.getObject("Stronghold_Enter_Time"));
                 sd.Final_Time =             Format.fmtTime   (results.getObject("Final_Time"));
                 sd.Starting_Structure =     Format.fmtString (results.getObject("Starting_Structure"));
-                sd.BastionType =            Format.fmtString (results.getObject("Bastion_Type"));
+                sd.Bastion_Type =           Format.fmtString (results.getObject("Bastion_Type"));
                 sd.web_user_id =            Format.fmtInteger(results.getObject("web_user_id"));
                 sdl.add(sd);
             }

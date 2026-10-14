@@ -10,8 +10,13 @@ const AjaxSpeedruns = ({url}) => {
     // Tell React that "error" is a state variable that (when changed) 
     // should redisplay this component. Set its initial value to null.
     const [error, setError] = React.useState(null);
+    const [dbList, setDbList] = React.useState([]);
 
     const [isLoading, setIsLoading] = React.useState(true);
+
+    const [sortBy, setSortBy] = React.useState("Player_Username"); // leftmost column first
+    const [filterInput, setFilterInput] = React.useState(""); // what is typed
+    const [filteredList, setFilteredList] = React.useState([]);           // what Search last applied
 
     // useEffect 2nd parameter is an array of elements that 
     // (if any of those state variables change) should trigger the function specified 
@@ -21,30 +26,55 @@ const AjaxSpeedruns = ({url}) => {
 
         // ajax_alt takes three parameters: the URL to read, Success Fn, Failure Fn.
         ajax_alt(
-            url, // URL for AJAX call to invoke
-            //"json/users.json", // URL for AJAX call to invoke
-            //"webUser/getAll", // URL for AJAX call to invoke
+            "json/speedruns.json",
 
             // success function (anonymous)
-            function (dbList) {   // success function gets obj from ajax_alt
-                if (dbList.dbError.length > 0) {
-                    setError(dbList.dbError);
+            function (obj) {   // success function gets obj from ajax_alt
+                if (obj.dbError.length > 0) {
+                    setError({friendly: "Database currently unavailable.", technical: obj.dbError});
+                    setItems([]);
                 } else {
                     console.log("in AjaxCars, here is web user list (on the next line):");
-                    console.log(dbList.Player_Info);
-                    setItems(dbList.Player_Info);
+                    console.log(obj.Player_Info);
+                    setDbList(obj.Player_Info);
+                    setFilteredList(obj.Player_Info);
                 }
                 setIsLoading(false); // set isLoading last to prevent premature rendering. 
             },
 
             // failure function (also anonymous)
             function (msg) {       // failure function gets error message from ajax_alt
-                setError(msg);
+                setError({friendly: "Unable to load the speedrun list from the server.", technical: "AJAX Error: " + msg}   );
                 setIsLoading(false); // set isLoading last to prevent premature rendering.
             }
         );
-    },
-        []);
+    }, []);
+
+    const doFilter = (filterInputVal) => {
+        let newList = filterObjList(dbList, filterInputVal);
+        console.log("function doFilter. filterInputVal is: " + filterInputVal +
+            ". See filtered list on next line:");
+        console.log(newList);
+        setFilteredList(newList);
+    };
+
+    const clearFilter = () => {
+        setFilterInput("");
+        doFilter("");
+        setFilteredList(dbList.slice());
+    }
+
+    function sortByProp(propName, sortType) {
+        let listCopy = structuredClone(dbList);  
+
+        jsSort(listCopy, propName, sortType);
+        console.log("Sorted list is below");
+        console.log(listCopy);
+
+        setDbList(listCopy);
+        setFilteredList(listCopy);
+    }
+
 
     if (isLoading) {
         console.log("Is Loading...");
@@ -53,10 +83,16 @@ const AjaxSpeedruns = ({url}) => {
 
     if (error) {
         console.log("Error...");
-        return <div>Error: {error} </div>;
+        return (
+            <div>
+                <p><strong>{error.friendly}</strong></p>
+                <p>Technical details: {error.technical}</p>
+            </div>
+        );
+
     }
 
-    console.log("items for UserTable on next line");
+    console.log("items for SpeedrunTable on next line");
     console.log(items);
 
     /* Note that the sort icons are included (below) -- just to show you 
@@ -65,28 +101,49 @@ const AjaxSpeedruns = ({url}) => {
     return (
         <div className="clickSort">
             <h3>
-                Speedrun List
+                Filterable Speedrun List &nbsp;
+                <input value={filterInput} onChange={(e) => setFilterInput(e.target.value)} />
+                &nbsp;
+                <button onClick={() => doFilter(filterInput)}>Search</button>
+                &nbsp;
+                <button onClick={clearFilter}>Clear</button>
             </h3>
             <table>
                 <tr>
-                    <th className="textAlignCenter"><img src="icons/dark/blackDownSort.png" />Username</th>
-                    <th className="textAlignCenter"><img src="icons/dark/blackDownSort.png" />Nether Enter Time</th>
-                    <th className="textAlignCenter"><img src="icons/dark/blackDownSort.png" />Stronghold Enter Time</th>
-                    <th className="textAlignCenter"><img src="icons/dark/blackDownSort.png" />Final Time</th>
-                    <th className="textAlignCenter"><img src="icons/dark/blackDownSort.png" />Starting Structure</th>
-                    <th className="textAlignCenter"><img src="icons/dark/blackDownSort.png" />Bastion Type</th>
-                    
+                    <th onClick={() => sortByProp("Player_Username", "text")} >
+                        <img src="icons/dark/blackDownSort.png" />Username
+                    </th>
+                    <th onClick={() => sortByProp("Nether_Enter_Time", "time")}
+                        className="textAlignCenter">
+                        <img src="icons/dark/blackDownSort.png" />Nether Enter Time
+                    </th>
+                    <th onClick={() => sortByProp("Stronghold_Enter_Time", "time")}
+                        className="textAlignCenter">
+                        <img src="icons/dark/blackDownSort.png" />Stronghold Enter Time
+                    </th>
+                    <th onClick={() => sortByProp("Final_Time", "time")}
+                        className="textAlignCenter">
+                        <img src="icons/dark/blackDownSort.png" />Final Time
+                    </th>
+                    <th onClick={() => sortByProp("Starting_Structure", "text")}
+                        className="textAlignCenter">
+                        <img src="icons/dark/blackDownSort.png" />Starting Structure
+                    </th>
+                    <th onClick={() => sortByProp("Bastion_Type", "text")}
+                        className="textAlignCenter">
+                        <img src="icons/dark/blackDownSort.png" />Bastion Type
+                    </th>
                 </tr>
 
                 {
-                    items.map((item, index) =>
-                        <tr key={item.id}>
-                            <td className="skinSizing">{item.Player_Username}<br /><img src={item.Player_Skin} /></td>
-                            <td>{item.Nether_Enter_Time}</td>
-                            <td>{item.Stronghold_Enter_Time}</td>
-                            <td>{item.Final_Time}</td>
-                            <td>{item.Starting_Structure}</td>
-                            <td>{item.Bastion_Type}</td>
+                    filteredList.map((listObj,index) =>
+                        <tr key={listObj.Player_id || index}>
+                            <td className="skinSizing">{listObj.Player_Username}<br /><img src={listObj.Player_Skin} /></td>
+                            <td className="textAlignRight">{listObj.Nether_Enter_Time}</td>
+                            <td className="textAlignRight">{listObj.Stronghold_Enter_Time}</td>
+                            <td className="textAlignRight">{listObj.Final_Time}</td>
+                            <td>{listObj.Starting_Structure}</td>
+                            <td>{listObj.Bastion_Type}</td>
                         </tr>
                     )
                 }

@@ -52,6 +52,7 @@ function BlogR() {
                 <p> Click <a href="Player_Info/getAll" target="_blank">here</a> to view the database of speedruns!</p>
             <h3>HW6 </h3>
                 <p>I had some trouble merging my homework with the lab files, there were lots of little bits I had forgotten or overlooked. I forgot to bring over ajax_alt.js and had forgotten how exactly we were pulling from our web_users from our db and copied over the users.json thinking it was needed. I forgot to copy over clicksort.css and even then I forgot to source and link them in my actual HTML file. Just a lot of small things.  </p>
+                <p>I had a LOT of trouble getting the sortable columns and filtering search to work. I originally tried to do it on my own using claude to help but struggled for an hour and a half before a friend told me there was a tutorial from which I ashamedly adapted that code into my own. I still had a lot of issues where filtering worked for one table and not the other, and sorting worked for the other table and not this one. I used a lot of claude to help figure out the fixes for this homework, including rewriting filterObjList and sortOrder. </p>
         </div>
     );
 }

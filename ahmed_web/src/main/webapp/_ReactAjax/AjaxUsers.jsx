@@ -10,7 +10,10 @@ const AjaxUsers = ({url}) => {
     // Tell React that "error" is a state variable that (when changed) 
     // should redisplay this component. Set its initial value to null.
     const [error, setError] = React.useState(null);
+    const [dbList, setDbList] = React.useState([]);
 
+    const [filterInput, setFilterInput] = React.useState(""); // what is typed
+    const [filteredList, setFilteredList] = React.useState([]);           // what Search last applied
     const [isLoading, setIsLoading] = React.useState(true);
 
     // useEffect 2nd parameter is an array of elements that 
@@ -21,30 +24,55 @@ const AjaxUsers = ({url}) => {
 
         // ajax_alt takes three parameters: the URL to read, Success Fn, Failure Fn.
         ajax_alt(
-            url, // URL for AJAX call to invoke
-            //"json/users.json", // URL for AJAX call to invoke
-            //"webUser/getAll", // URL for AJAX call to invoke
+            "webUser/getAll",
 
             // success function (anonymous)
-            function (dbList) {   // success function gets obj from ajax_alt
-                if (dbList.dbError.length > 0) {
-                    setError(dbList.dbError);
+            function (obj) {   // success function gets obj from ajax_alt
+                if (obj.dbError.length > 0) {
+                    setError({friendly: "Database currently unavailable.", technical: obj.dbError});
                 } else {
                     console.log("in AjaxUsers, here is web user list (on the next line):");
-                    console.log(dbList.webUserList);
-                    setItems(dbList.webUserList);
+                    console.log(obj.webUserList);
+                    setDbList(obj.webUserList);
+                    setFilteredList(obj.webUserList);
                 }
                 setIsLoading(false); // set isLoading last to prevent premature rendering. 
             },
 
             // failure function (also anonymous)
             function (msg) {       // failure function gets error message from ajax_alt
-                setError(msg);
+                console.log("Ajax error encountered: " + msg);
+                setError({friendly: "Unable to load the user list from the server.", technical: "AJAX Error: " + msg});
                 setIsLoading(false); // set isLoading last to prevent premature rendering.
             }
         );
-    },
-        []);
+    }, []);
+
+    const doFilter = (filterInputVal) => {
+        let newList = filterObjList(dbList, filterInputVal);
+        console.log("function doFilter. filterInputVal is: " + filterInputVal +
+            ". See filtered list on next line:");
+        console.log(newList);
+        setFilteredList(newList);
+    };
+
+    const clearFilter = () => {
+        setFilterInput("");
+        doFilter("");
+        setFilteredList(dbList.slice());
+    }
+
+    function sortByProp(propName, sortType) {
+        let listCopy = structuredClone(dbList);  
+
+        jsSort(listCopy, propName, sortType);
+        console.log("Sorted list is below");
+        console.log(listCopy);
+
+        setDbList(listCopy);
+        setFilteredList(listCopy);
+    }
+
 
     if (isLoading) {
         console.log("Is Loading...");
@@ -53,7 +81,13 @@ const AjaxUsers = ({url}) => {
 
     if (error) {
         console.log("Error...");
-        return <div>Error: {error} </div>;
+        return (
+            <div>
+                <p><strong>{error.friendly}</strong></p>
+                <p>Technical details: {error.technical}</p>
+            </div>
+        );
+
     }
 
     console.log("items for UserTable on next line");
@@ -65,39 +99,45 @@ const AjaxUsers = ({url}) => {
     return (
         <div className="clickSort">
             <h3>
-                Web User List
+                Filterable User List &nbsp;
+                <input value={filterInput} onChange={(e) => setFilterInput(e.target.value)} />
+                &nbsp;
+                <button onClick={() => doFilter(filterInput)}>Search</button>
+                &nbsp;
+                <button onClick={clearFilter}>Clear</button>
             </h3>
+
+
             <table>
                 <tr>
-                    <th>
-                        <img src="icons/dark/blackDownSort.png" />
-                        Email
-                    </th>
-                    <th className="textAlignCenter">Image</th>
-                    <th className="textAlignCenter">
-                        <img src="icons/dark/blackDownSort.png" />
-                        Birthday
-                    </th>
-                    <th className="textAlignRight">
-                        <img src="icons/dark/blackDownSort.png" />
-                        Membership Fee
-                    </th>
-                    <th>
-                        <img src="icons/dark/blackDownSort.png" />
-                        Role
-                    </th>
-                    <th>Error</th>
+                    <th onClick={() => sortByProp("userEmail", "text")} >
+                            <img src="icons/dark/blackDownSort.png" />Email
+                        </th>
+                        <th className="textAlignCenter">Image</th>
+                        <th onClick={() => sortByProp("birthday", "date")}
+                            className="textAlignCenter">
+                            <img src="icons/dark/blackDownSort.png" />Birthday
+                        </th>
+                        <th onClick={() => sortByProp("membershipFee", "number")}
+                            className="textAlignRight" >
+                            <img src="icons/dark/blackDownSort.png" />Membership Fee
+                        </th>
+                        <th onClick={() => sortByProp("userRoleType", "text")}>
+                            <img src="icons/dark/blackDownSort.png" />Role
+                        </th>
+                        <th>Error</th>
+
                 </tr>
 
                 {
-                    items.map((item, index) =>
-                        <tr key={item.webUserId}>
-                            <td>{item.userEmail}</td>
-                            <td className="shadowImage textAlignCenter"><img src={item.userImage} /></td>
-                            <td className="textAlignCenter">{item.birthday}</td>
-                            <td className="textAlignRight">{item.membershipFee}</td>
-                            <td className="nowrap">{item.userRoleId} {item.userRoleType}</td>
-                            <td>{item.errorMsg}</td>
+                    filteredList.map((listObj, index) =>
+                        <tr key={listObj.webUserId || index}>
+                            <td>{listObj.userEmail}</td>
+                            <td className="shadowImage textAlignCenter"><img src={listObj.userImage} /></td>
+                            <td className="textAlignCenter">{listObj.birthday}</td>
+                            <td className="textAlignRight">{listObj.membershipFee}</td>
+                            <td className="nowrap">{listObj.userRoleId} {listObj.userRoleType}</td>
+                            <td>{listObj.errorMsg}</td>
                         </tr>
                     )
                 }
@@ -105,5 +145,8 @@ const AjaxUsers = ({url}) => {
             </table>
         </div>
     );
+
+
+
 
 }; // function AjaxUsers 
