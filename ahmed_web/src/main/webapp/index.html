@@ -12,12 +12,13 @@
 
     <link href="style/blog.css" rel="stylesheet" type="text/css" />
     <!--<link href="style/dropDown.css" rel="stylesheet" type="text/css" /> -->
-    <link href="style/home.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="style/home.css" rel="stylesheet" type="text/css" /> -->
     <link href="style/main.css" rel="stylesheet" type="text/css" />
     <link href="style/myDropDown.css" rel="stylesheet" type="text/css" />
     <link href="style/obj_CGF.css" rel="stylesheet" type="text/css" />
     <link href="style/obj.css" rel="stylesheet" type="text/css" />
     <link href="style/style.css" rel="stylesheet" type="text/css" />
+    <link href="style/clickSort.css" rel="stylesheet" type="text/css" />
 
     <!-- By referencing the Babel CDN, we can use JSX (HTML tags in JavaScript) 
          Asking for the latest minor version of babel major version 7. -->
@@ -46,6 +47,7 @@
     <!-- Put JS reusable first (these are called by CGFs or by the page like the dropDown FW). -->
     <script src="_JS_reusable/dropDownFW.js"></script>
     <script src="_JS_reusable/MakeObj.js"></script>
+    <script src="_JS_reusable/ajax_alt.js"></script>
 
     <!-- JS Content Generating functions (these are called by the router). -->
     <script src="_JS_CGF/MakeObj_CGF.js"></script>
@@ -58,9 +60,10 @@
     <script type="text/babel" src="_React_CGF/BlogR.jsx"></script>
 
     <!-- Any React scripts (which typically have JSX) needs script type="text/babel" -->
+    <script type="text/babel" src="_ReactAjax/AjaxUsers.jsx"></script>
+    <script type="text/babel" src="_ReactAjax/AjaxSpeedruns.jsx"></script>
 
     <script type="text/babel" data-type="module">
-
         //"use strict";
 
 
@@ -104,7 +107,7 @@
                             <div class="dropHeader">Search</div>
                             <div class="dropContent">
                                 <NavLink to="/usersReact">User List</NavLink> <br />
-                                <NavLink to="/otherReact">[Other] List</NavLink> <br />
+                                <NavLink to="/otherReact">Speedrun List</NavLink> <br />
                             </div>
                         </div>
 
@@ -128,6 +131,8 @@
                         <Route path="/home" element={<HomeR />} />
                         <Route path="/myObj" element={<ConvertEle ele={MakeObj_CGF()} />} />
                         <Route path="/blog" element={<BlogR />} />
+                        <Route path="/otherReact" element={<AjaxSpeedruns url="json/speedruns.json"/>}/>
+                        <Route path="/usersReact" element={<AjaxUsers url="webUser/getAll" />} />
                     </Routes>
                 </div>
                                 

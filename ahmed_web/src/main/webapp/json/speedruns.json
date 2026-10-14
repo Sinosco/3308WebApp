@@ -1,0 +1,125 @@
+{
+"dbError": "",
+"Player_Info": [
+	{
+		"Player_id" : 1,
+		"Player_Username" : "Sinosco",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/knightSkin.png",
+		"Nether_Enter_Time" : "00:03:20",
+		"Stronghold_Enter_Time" : "00:09:23",
+		"Final_Time" : "00:13:59",
+		"Starting_Structure" : "Buried Treasure",
+		"Bastion_Type" : "Stables",
+		"web_user_id" : 1
+	},
+	{
+		"Player_id" : 2,
+		"Player_Username" : "Khairos_Crusade",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/SaudiChest.png",
+		"Nether_Enter_Time" : "00:13:38",
+		"Stronghold_Enter_Time" : "00:23:09",
+		"Final_Time" : "01:01:12",
+		"Starting_Structure" : "Ruined Portal",
+		"Bastion_Type" : "Bridge",
+		"web_user_id" : 2
+	},
+	{
+		"Player_id" : 3,
+		"Player_Username" : "Avenger_14512",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/IronMan.png",
+		"Nether_Enter_Time" : "00:09:49",
+		"Stronghold_Enter_Time" : "00:15:19",
+		"Final_Time" : "00:22:00",
+		"Starting_Structure" : "Desert Temple",
+		"Bastion_Type" : "Housing",
+		"web_user_id" : 3
+	},
+	{
+		"Player_id" : 4,
+		"Player_Username" : "Herobrine",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/tropze.png",
+		"Nether_Enter_Time" : "00:09:18",
+		"Stronghold_Enter_Time" : "00:17:45",
+		"Final_Time" : "00:50:00",
+		"Starting_Structure" : "Shipwreck",
+		"Bastion_Type" : "Bridge",
+		"web_user_id" : 2
+	},
+	{
+		"Player_id" : 5,
+		"Player_Username" : "notch",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/dano.png",
+		"Nether_Enter_Time" : "00:04:49",
+		"Stronghold_Enter_Time" : "00:08:00",
+		"Final_Time" : "00:10:20",
+		"Starting_Structure" : "Ruined Portal",
+		"Bastion_Type" : "Housing",
+		"web_user_id" : 3
+	},
+	{
+		"Player_id" : 6,
+		"Player_Username" : "SSundee",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/weaowo.png",
+		"Nether_Enter_Time" : "00:05:14",
+		"Stronghold_Enter_Time" : "00:11:56",
+		"Final_Time" : "00:35:40",
+		"Starting_Structure" : "Desert Temple",
+		"Bastion_Type" : "Housing",
+		"web_user_id" : 1
+	},
+	{
+		"Player_id" : 7,
+		"Player_Username" : "Isaaaaaack",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/lyriee.png",
+		"Nether_Enter_Time" : "00:15:30",
+		"Stronghold_Enter_Time" : "00:22:07",
+		"Final_Time" : "00:26:31",
+		"Starting_Structure" : "Buried Treasure",
+		"Bastion_Type" : "Stables",
+		"web_user_id" : 2
+	},
+	{
+		"Player_id" : 8,
+		"Player_Username" : "yoItsFeinberg",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/razvan.png",
+		"Nether_Enter_Time" : "00:27:46",
+		"Stronghold_Enter_Time" : "00:52:33",
+		"Final_Time" : "01:30:52",
+		"Starting_Structure" : "Shipwreck",
+		"Bastion_Type" : "Bridge",
+		"web_user_id" : 1
+	},
+	{
+		"Player_id" : 9,
+		"Player_Username" : "Haxx",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/luigi.png",
+		"Nether_Enter_Time" : "00:09:23",
+		"Stronghold_Enter_Time" : "00:12:18",
+		"Final_Time" : "00:18:44",
+		"Starting_Structure" : "Village",
+		"Bastion_Type" : "Stables",
+		"web_user_id" : 2
+	},
+	{
+		"Player_id" : 11,
+		"Player_Username" : "wierden01",
+		"Player_Skin" : "https:\/\/cis-linux2.temple.edu\/tomcat11\/fa26_3308_tup53806\/pics\/reney.png",
+		"Nether_Enter_Time" : "00:05:26",
+		"Stronghold_Enter_Time" : "00:09:56",
+		"Final_Time" : "00:13:45",
+		"Starting_Structure" : "Village",
+		"Bastion_Type" : "Bridge",
+		"web_user_id" : 1
+	},
+	{
+		"Player_id" : 14,
+		"Player_Username" : null,
+		"Player_Skin" : null,
+		"Nether_Enter_Time" : null,
+		"Stronghold_Enter_Time" : null,
+		"Final_Time" : null,
+		"Starting_Structure" : null,
+		"Bastion_Type" : null,
+		"web_user_id" : null
+	}
+]}

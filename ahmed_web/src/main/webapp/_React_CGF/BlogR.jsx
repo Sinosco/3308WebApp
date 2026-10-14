@@ -50,7 +50,8 @@ function BlogR() {
             <h3>Database Connections</h3>                
                 <p> Click <a href="webUser/getAll" target="_blank">here</a> to view the web users.</p>
                 <p> Click <a href="Player_Info/getAll" target="_blank">here</a> to view the database of speedruns!</p>
-
+            <h3>HW6 </h3>
+                <p>I had some trouble merging my homework with the lab files, there were lots of little bits I had forgotten or overlooked. I forgot to bring over ajax_alt.js and had forgotten how exactly we were pulling from our web_users from our db and copied over the users.json thinking it was needed. I forgot to copy over clicksort.css and even then I forgot to source and link them in my actual HTML file. Just a lot of small things.  </p>
         </div>
     );
 }
