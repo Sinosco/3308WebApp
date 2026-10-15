@@ -1,6 +1,6 @@
 const AjaxSpeedruns = ({url}) => {
 
-    console.log("AjaxCars running");
+    console.log("AjaxSpeedruns running");
 
     // Tell React that 'items' (an array of objects) is a state variable 
     // that (when changed) should redisplay this component.
@@ -26,7 +26,7 @@ const AjaxSpeedruns = ({url}) => {
 
         // ajax_alt takes three parameters: the URL to read, Success Fn, Failure Fn.
         ajax_alt(
-            "json/speedruns.json",
+            url,
 
             // success function (anonymous)
             function (obj) {   // success function gets obj from ajax_alt
@@ -34,10 +34,11 @@ const AjaxSpeedruns = ({url}) => {
                     setError({friendly: "Database currently unavailable.", technical: obj.dbError});
                     setItems([]);
                 } else {
-                    console.log("in AjaxCars, here is web user list (on the next line):");
-                    console.log(obj.Player_Info);
-                    setDbList(obj.Player_Info);
-                    setFilteredList(obj.Player_Info);
+                    console.log("in AjaxSpeedruns, here is player info list (on the next line):");
+                    console.log(obj.playerInfoList);
+                    const list = obj.playerInfoList; jsSort(list, "Player_Username", "text");
+                    setDbList(list);
+                    setFilteredList(list);
                 }
                 setIsLoading(false); // set isLoading last to prevent premature rendering. 
             },
@@ -47,6 +48,8 @@ const AjaxSpeedruns = ({url}) => {
                 setError({friendly: "Unable to load the speedrun list from the server.", technical: "AJAX Error: " + msg}   );
                 setIsLoading(false); // set isLoading last to prevent premature rendering.
             }
+
+            
         );
     }, []);
 
@@ -70,9 +73,13 @@ const AjaxSpeedruns = ({url}) => {
         jsSort(listCopy, propName, sortType);
         console.log("Sorted list is below");
         console.log(listCopy);
-
         setDbList(listCopy);
-        setFilteredList(listCopy);
+
+        let filteredCopy = structuredClone(filteredList);
+        jsSort(filteredCopy, propName, sortType);
+        console.log("Sorted filtered list is below");
+        console.log(filteredCopy);
+        setFilteredList(filteredCopy);
     }
 
 
@@ -133,6 +140,10 @@ const AjaxSpeedruns = ({url}) => {
                         className="textAlignCenter">
                         <img src="icons/dark/blackDownSort.png" />Bastion Type
                     </th>
+                    <th onClick={() => sortByProp("userEmail", "text")}
+                        className="textAlignCenter">
+                        <img src="icons/dark/blackDownSort.png" />User Email
+                    </th>
                 </tr>
 
                 {
@@ -144,6 +155,7 @@ const AjaxSpeedruns = ({url}) => {
                             <td className="textAlignRight">{listObj.Final_Time}</td>
                             <td>{listObj.Starting_Structure}</td>
                             <td>{listObj.Bastion_Type}</td>
+                            <td>{listObj.userEmail}</td>
                         </tr>
                     )
                 }

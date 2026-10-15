@@ -23,8 +23,9 @@ public class playerView {
         try {
             // Note the trailing spaces so the SQL pieces don't run together.
             String sql = "SELECT Player_id, Player_Username, Player_Skin, Nether_Enter_Time, "
-                    + "Stronghold_Enter_Time, Final_Time, Starting_Structure, Bastion_Type, web_user_id "
-                    + "FROM Player_Info "
+                    + "Stronghold_Enter_Time, Final_Time, Starting_Structure, Bastion_Type, "
+                    + "Player_Info.web_user_id, user_email "
+                    + "FROM Player_Info LEFT JOIN web_user ON Player_Info.web_user_id = web_user.web_user_id "
                     + "ORDER BY Player_id ";
 
             PreparedStatement stmt = dbc.getConn().prepareStatement(sql);
@@ -43,6 +44,7 @@ public class playerView {
                 sd.Starting_Structure =     Format.fmtString (results.getObject("Starting_Structure"));
                 sd.Bastion_Type =           Format.fmtString (results.getObject("Bastion_Type"));
                 sd.web_user_id =            Format.fmtInteger(results.getObject("web_user_id"));
+                sd.userEmail = Format.fmtString(results.getObject("user_email"));
                 sdl.add(sd);
             }
             results.close();

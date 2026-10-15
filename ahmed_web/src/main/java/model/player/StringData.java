@@ -9,6 +9,7 @@ public class StringData {
     public String Starting_Structure = "";    // foreign key (integer), required by DB
     public String Bastion_Type = "";  // varChar, joined from user_role table.
     public String web_user_id = "";  // varChar, joined from user_role table.
+    public String userEmail = "";  // varChar, joined from user_role table.
 
     public String errorMsg = "";      // not actually in the database, used by the app 
                                       // to convey success or failure.    

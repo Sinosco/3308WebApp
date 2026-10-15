@@ -33,8 +33,9 @@ const AjaxUsers = ({url}) => {
                 } else {
                     console.log("in AjaxUsers, here is web user list (on the next line):");
                     console.log(obj.webUserList);
-                    setDbList(obj.webUserList);
-                    setFilteredList(obj.webUserList);
+                    const list = obj.webUserList; jsSort(list, "userEmail", "text");
+                    setDbList(list);
+                    setFilteredList(list);
                 }
                 setIsLoading(false); // set isLoading last to prevent premature rendering. 
             },
@@ -68,9 +69,13 @@ const AjaxUsers = ({url}) => {
         jsSort(listCopy, propName, sortType);
         console.log("Sorted list is below");
         console.log(listCopy);
-
         setDbList(listCopy);
-        setFilteredList(listCopy);
+
+        let filteredCopy = structuredClone(filteredList);
+        jsSort(filteredCopy, propName, sortType);
+        console.log("Sorted filtered list is below");
+        console.log(filteredCopy);
+        setFilteredList(filteredCopy);
     }
 
 

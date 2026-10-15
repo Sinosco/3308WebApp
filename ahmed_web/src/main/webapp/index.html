@@ -3,12 +3,12 @@
 <html>
 
 <head>
-    <title>Title Nav Using Flexbox</title>
+    <title>MCSR</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/x-icon" href="icons/more_icons/music_notes.png">
+    <link rel="icon" type="image/x-icon" href="icons/more_icons/lightning.png">
 
     <link href="style/blog.css" rel="stylesheet" type="text/css" />
     <!--<link href="style/dropDown.css" rel="stylesheet" type="text/css" /> -->
@@ -134,7 +134,7 @@
                         <Route path="/home" element={<HomeR />} />
                         <Route path="/myObj" element={<ConvertEle ele={MakeObj_CGF()} />} />
                         <Route path="/blog" element={<BlogR />} />
-                        <Route path="/otherReact" element={<AjaxSpeedruns url="json/speedruns.json"/>}/>
+                        <Route path="/otherReact" element={<AjaxSpeedruns url="Player_Info/getAll" />} />
                         <Route path="/usersReact" element={<AjaxUsers url="webUser/getAll" />} />
                     </Routes>
                 </div>
