@@ -1,10 +1,13 @@
 package com.ahmed_web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import model.webUser.*;
 import dbUtils.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import view.WebUserView;
 
 @RestController
@@ -22,4 +25,60 @@ public class WebUserController {
 
         return Json.toJson(list); // convert sdl obj to JSON Format and return that.
     }
+
+    // Example URL: webUser/login?userEmail=sallyk@temple.edu&userPassword=abc
+    @RequestMapping(value = "/webUser/login", params = { "userEmail", "userPassword" }, produces = "application/json")
+    public String login(@RequestParam("userEmail") String userEmail,
+            @RequestParam("userPassword") String userPassword,
+            HttpServletRequest request) {
+
+        StringData sd = new StringData(); // all fields ""
+
+        DbConn dbc = new DbConn();
+        sd.errorMsg = dbc.getErr();
+        if (sd.errorMsg.length() > 0) { // database problem: report it and stop
+            dbc.close();
+            return Json.toJson(sd);
+        }
+
+        sd = WebUserView.login(dbc, userEmail, userPassword); // reusable code does the work
+        dbc.close();
+
+        HttpSession session = request.getSession();
+        if (sd.errorMsg.length() == 0) {
+            session.setAttribute("loggedOnUser", sd); // success: remember this user
+        } else {
+            session.invalidate(); // failure: wipe any previous login
+        }
+
+        return Json.toJson(sd);
+    }
+
+    // No parameters, no database. Just reads what login stored in the session.
+    @RequestMapping(value = "/webUser/getProfile", produces = "application/json")
+    public String getProfile(HttpServletRequest request) {
+
+        StringData sd = new StringData();
+        HttpSession session = request.getSession();
+
+        if (session.getAttribute("loggedOnUser") != null) {
+            sd = (StringData) session.getAttribute("loggedOnUser"); // must type cast
+        } else {
+            sd.errorMsg = "no user logged on";
+        }
+
+        return Json.toJson(sd);
+    }
+
+    // No parameters, no database. Destroys the session.
+    @RequestMapping(value = "/webUser/logoff", produces = "application/json")
+    public String logoff(HttpServletRequest request) {
+
+        StringData sd = new StringData();
+        request.getSession().invalidate();
+        sd.errorMsg = "user is now logged off";
+
+        return Json.toJson(sd);
+    }
+
 }

@@ -53,8 +53,48 @@ public class WebUserView {
             stmt.close();
         } catch (Exception e) {
             sd.errorMsg = "Exception thrown in WebUserView.getAllUsers(): " + e.getMessage();
-            sdl.add(sd);
+            sdl.add(sd);    
         }
         return sdl;
     }
+
+public static StringData login(DbConn dbc, String userEmail, String userPassword) {
+ 
+        // sd will have all of its fields initialized to ""
+        StringData sd = new StringData();
+ 
+        try {
+            // Same SELECT/JOIN as getAllUsers, but WHERE instead of ORDER BY.
+            String sql = "SELECT web_user_id, user_email, user_password, user_image, membership_fee, birthday, "
+                    + "web_user.user_role_id, user_role_type "
+                    + "FROM web_user LEFT JOIN user_role ON web_user.user_role_id = user_role.user_role_id "
+                    + "WHERE user_email = ? AND user_password = ?";
+ 
+            PreparedStatement stmt = dbc.getConn().prepareStatement(sql);
+            stmt.setString(1, userEmail);      // fills in the first ?
+            stmt.setString(2, userPassword);   // fills in the second ?
+            ResultSet results = stmt.executeQuery();
+ 
+            if (results.next()) {   // a matching row was found
+ 
+                sd.webUserId = Format.fmtInteger(results.getObject("web_user_id"));
+                sd.userEmail = Format.fmtString(results.getObject("user_email"));
+                sd.userPassword = Format.fmtString(results.getObject("user_password"));
+                sd.userImage = Format.fmtString(results.getObject("user_image"));
+                sd.birthday = Format.fmtDate(results.getObject("birthday"));
+                sd.membershipFee = Format.fmtDollar(results.getObject("membership_fee"));
+                sd.userRoleId = Format.fmtInteger(results.getObject("web_user.user_role_id"));
+                sd.userRoleType = Format.fmtString(results.getObject("user_role_type"));
+ 
+            } else {
+                sd.errorMsg = "Credentials not found.";
+            }
+            results.close();
+            stmt.close();
+        } catch (Exception e) {
+            sd.errorMsg = "Exception thrown in WebUserView.login(): " + e.getMessage();
+        }
+        return sd;
+    }
+
 }

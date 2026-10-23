@@ -67,6 +67,11 @@
     <script type="text/babel" src="_ReactAjax/AjaxUsers.jsx"></script>
     <script type="text/babel" src="_ReactAjax/AjaxSpeedruns.jsx"></script>
 
+    <script type="text/babel" src="_React_CGF/ProfileView.jsx"></script>
+    <script type="text/babel" src="_ReactAjax/LogInR.jsx"></script>
+    <script type="text/babel" src="_ReactAjax/ProfileR.jsx"></script>
+    <script type="text/babel" src="_ReactAjax/LogoffR.jsx"></script>
+
     <script type="text/babel" data-type="module">
         //"use strict";
 
@@ -136,6 +141,10 @@
                         <Route path="/blog" element={<BlogR />} />
                         <Route path="/otherReact" element={<AjaxSpeedruns url="Player_Info/getAll" />} />
                         <Route path="/usersReact" element={<AjaxUsers url="webUser/getAll" />} />
+
+                        <Route path="/login" element={<LoginR />} />
+                        <Route path="/logout" element={<LogoffR />} />
+                        <Route path="/profile" element={<ProfileR />} />
                     </Routes>
                 </div>
                                 
