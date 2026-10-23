@@ -26,35 +26,34 @@ public class WebUserController {
         return Json.toJson(list); // convert sdl obj to JSON Format and return that.
     }
 
-    // Example URL: webUser/login?userEmail=sallyk@temple.edu&userPassword=abc
+
     @RequestMapping(value = "/webUser/login", params = { "userEmail", "userPassword" }, produces = "application/json")
     public String login(@RequestParam("userEmail") String userEmail,
             @RequestParam("userPassword") String userPassword,
             HttpServletRequest request) {
 
-        StringData sd = new StringData(); // all fields ""
+        StringData sd = new StringData();
 
         DbConn dbc = new DbConn();
         sd.errorMsg = dbc.getErr();
-        if (sd.errorMsg.length() > 0) { // database problem: report it and stop
+        if (sd.errorMsg.length() > 0) {
             dbc.close();
             return Json.toJson(sd);
         }
 
-        sd = WebUserView.login(dbc, userEmail, userPassword); // reusable code does the work
+        sd = WebUserView.login(dbc, userEmail, userPassword);
         dbc.close();
 
         HttpSession session = request.getSession();
         if (sd.errorMsg.length() == 0) {
-            session.setAttribute("loggedOnUser", sd); // success: remember this user
+            session.setAttribute("loggedOnUser", sd);
         } else {
-            session.invalidate(); // failure: wipe any previous login
+            session.invalidate();
         }
 
         return Json.toJson(sd);
     }
 
-    // No parameters, no database. Just reads what login stored in the session.
     @RequestMapping(value = "/webUser/getProfile", produces = "application/json")
     public String getProfile(HttpServletRequest request) {
 
@@ -62,7 +61,7 @@ public class WebUserController {
         HttpSession session = request.getSession();
 
         if (session.getAttribute("loggedOnUser") != null) {
-            sd = (StringData) session.getAttribute("loggedOnUser"); // must type cast
+            sd = (StringData) session.getAttribute("loggedOnUser");
         } else {
             sd.errorMsg = "no user logged on";
         }
@@ -70,7 +69,7 @@ public class WebUserController {
         return Json.toJson(sd);
     }
 
-    // No parameters, no database. Destroys the session.
+
     @RequestMapping(value = "/webUser/logoff", produces = "application/json")
     public String logoff(HttpServletRequest request) {
 

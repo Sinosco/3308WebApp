@@ -3,10 +3,10 @@ const LoginR = () => {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
 
-    const [user, setUser] = React.useState(null);     // the logged-on user (from the API), or null
-    const [message, setMessage] = React.useState(""); // error / status message to show
+    const [user, setUser] = React.useState(null);     // logged-on user 
+    const [message, setMessage] = React.useState(""); 
 
-    // Unlike Profile and Logoff, Log On waits for a button click before calling the API.
+
     const doLogon = () => {
 
         setUser(null);
@@ -16,18 +16,16 @@ const LoginR = () => {
             "webUser/login?userEmail=" + encodeURIComponent(email) +
             "&userPassword=" + encodeURIComponent(password),
 
-            function (obj) {   // obj is the StringData the API returned
+            function (obj) {   // stringdata API returned
                 if (obj.errorMsg && obj.errorMsg.length > 0) {
-                    setMessage(obj.errorMsg);   // DB error or "credentials not found"
+                    setMessage(obj.errorMsg);
                 } else {
                     setMessage("");
-                    setUser(obj);               // success: show the welcome UI
+                    setUser(obj);
                 }
             },
 
-            function (msg) {
-                setMessage("AJAX error: " + msg);
-            }
+            function (msg) { setMessage("AJAX error: " + msg); }
         );
     };
 
@@ -58,4 +56,4 @@ const LoginR = () => {
         </div>
     );
 
-}; // function LoginR
+};

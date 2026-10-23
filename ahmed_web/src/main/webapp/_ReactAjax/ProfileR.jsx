@@ -3,7 +3,7 @@ const ProfileR = () => {
     const [user, setUser] = React.useState(null);
     const [message, setMessage] = React.useState("Loading profile...");
 
-    // RUN ONCE PATTERN (like ShowData): the API call happens right away, no button click.
+
     React.useEffect(() => {
 
         ajax_alt(
@@ -11,7 +11,6 @@ const ProfileR = () => {
 
             function (obj) {
                 if (obj.errorMsg && obj.errorMsg.length > 0) {
-                    // Server says nobody is logged on.
                     setMessage("Cannot show profile -- " + obj.errorMsg);
                 } else {
                     setMessage("");
@@ -19,9 +18,7 @@ const ProfileR = () => {
                 }
             },
 
-            function (msg) {
-                setMessage("AJAX error: " + msg);
-            }
+            function (msg) { setMessage("AJAX error: " + msg); }
         );
     }, []);
 
@@ -32,4 +29,4 @@ const ProfileR = () => {
         </div>
     );
 
-}; // function ProfileR
+};

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCSR Web API Tester</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 1.5rem 1rem 3rem;
+            font-family: Verdana, Geneva, sans-serif;
+            line-height: 1.5;
+            color: #222;
+            background: #eef1f5;
+        }
+
+        main {
+            max-width: 52rem;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin: 0 0 0.25rem;
+            font-size: 1.6rem;
+        }
+
+        h2 {
+            margin: 0 0 0.5rem;
+            font-size: 1.15rem;
+        }
+
+        p {
+            margin: 0.4rem 0;
+        }
+
+        section {
+            background: #fff;
+            border: 1px solid #c9d1dc;
+            border-radius: 0.5rem;
+            padding: 1rem 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        code {
+            background: #eef1f5;
+            padding: 0.1rem 0.35rem;
+            border-radius: 0.25rem;
+            font-size: 0.9em;
+            overflow-wrap: anywhere;
+        }
+
+        ol {
+            margin: 0.4rem 0;
+            padding-left: 1.4rem;
+        }
+
+        label {
+            display: inline-block;
+            margin: 0.25rem 0.5rem 0.25rem 0;
+        }
+
+        input {
+            font: inherit;
+            padding: 0.3rem 0.5rem;
+            max-width: 100%;
+            border: 1px solid #9aa5b5;
+            border-radius: 0.25rem;
+        }
+
+        button {
+            font: inherit;
+            padding: 0.35rem 1rem;
+            cursor: pointer;
+            border: 1px solid #2d4a6b;
+            background: #2d4a6b;
+            color: #fff;
+            border-radius: 0.25rem;
+        }
+
+        button:hover {
+            background: #3b5f88;
+        }
+
+        button:focus-visible,
+        input:focus-visible,
+        a:focus-visible {
+            outline: 3px solid #f0a500;
+            outline-offset: 2px;
+        }
+
+        pre {
+            margin: 0.75rem 0 0;
+            padding: 0.75rem;
+            min-height: 3rem;
+            background: #1f2933;
+            color: #e4ecf5;
+            border-radius: 0.25rem;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .note {
+            color: #555;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Web API Tester</h1>
+
+        <section>
+            <h2>0. Find valid credentials</h2>
+            <p>Open <a href="webUser/getAll" target="_blank">webUser/getAll</a>
+                and copy any <code>userEmail</code> and <code>userPassword</code> pair from the JSON.</p>
+        </section>
+
+        <section>
+            <h2>1. Log On API</h2>
+            <p>URL: <code>webUser/login?userEmail=EMAIL&amp;userPassword=PASSWORD</code></p>
+            <strong>Expected results:</strong>
+            <ol>
+                <li>Good credentials: the full user record (all fields filled, <code>errorMsg</code> is empty). The user
+                    is saved in the session.</li>
+                <li>Bad credentials: <code>errorMsg</code> says "Credentials not found." The session is invalidated.
+                </li>
+            </ol>
+            <strong>Test data for convenience:</strong>
+            <ol>
+                <li>
+                    <p>tup53806@temple.edu</p>
+                    <p>dFDg8rBtnymU</p>
+                </li>
+                <li>
+                    <p>ashleigh.gorczany@gmail.com</p>
+                    <p>rC7aUapYmVxb</p>
+                </li>
+                <li>
+                    <p>jackiereynolds@gmail.com</p>
+                    <p>6TEh9X9WNE79</p>
+                </li>
+            </ol>
+            <div>
+                <label for="email">userEmail</label><input id="email" type="text">
+                <label for="pw">userPassword</label><input id="pw" type="password">
+                <button type="button" id="btnLogin">Call Log On API</button>
+            </div>
+            <pre id="outLogin" aria-live="polite">Response appears here.</pre>
+        </section>
+
+        <section>
+            <h2>2. Get Profile API</h2>
+            <p>URL: <code>webUser/getProfile</code> (no parameters, no database access).</p>
+            <p>Expected results:</p>
+            <ol>
+                <li>After a good log on: the same user record that was stored in the session.</li>
+                <li>After a bad log on, or after log off: <code>errorMsg</code> is "no user logged on".</li>
+            </ol>
+            <button type="button" id="btnProfile">Call Get Profile API</button>
+            <pre id="outProfile" aria-live="polite">Response appears here.</pre>
+        </section>
+
+        <section>
+            <h2>3. Log Off API</h2>
+            <p>URL: <code>webUser/logoff</code> (no parameters, no database access).</p>
+            <p>Expected result: <code>errorMsg</code> is "user is now logged off". Run Get Profile again
+                afterward to confirm it now reports that no user is logged on.</p>
+            <button type="button" id="btnLogoff">Call Log Off API</button>
+            <pre id="outLogoff" aria-live="polite">Response appears here.</pre>
+        </section>
+        <section>
+            <h2>Suggested test order</h2>
+            <ol>
+                <li>Log On with good credentials</li>
+                <li>Get Profile (shows the user)</li>
+                <li>Log On with bad credentials</li>
+                <li>Get Profile (not logged on)</li>
+                <li>Log On with good credentials</li>
+                <li>Get Profile (shows the user)</li>
+                <li>Log Off</li>
+                <li>Get Profile (not logged on)</li>
+            </ol>
+        </section>
+
+    </main>
+
+    <script>
+        // Calls a relative URL and prints the JSON (or the error) into the given <pre>.
+        function callApi(url, outId) {
+            var out = document.getElementById(outId);
+            out.textContent = "GET " + url + "\n\nLoading...";
+            fetch(url, { credentials: "same-origin" })
+                .then(function (res) {
+                    if (!res.ok) { throw new Error("HTTP " + res.status + " " + res.statusText); }
+                    return res.json();
+                })
+                .then(function (obj) {
+                    out.textContent = "GET " + url + "\n\n" + JSON.stringify(obj, null, 2);
+                })
+                .catch(function (err) {
+                    out.textContent = "GET " + url + "\n\nError: " + err.message;
+                });
+        }
+
+        document.getElementById("btnLogin").addEventListener("click", function () {
+            var url = "webUser/login?userEmail=" + encodeURIComponent(document.getElementById("email").value) +
+                "&userPassword=" + encodeURIComponent(document.getElementById("pw").value);
+            callApi(url, "outLogin");
+        });
+        document.getElementById("btnProfile").addEventListener("click", function () {
+            callApi("webUser/getProfile", "outProfile");
+        });
+        document.getElementById("btnLogoff").addEventListener("click", function () {
+            callApi("webUser/logoff", "outLogoff");
+        });
+    </script>
+</body>
+
+</html>

@@ -1,22 +1,13 @@
 const LogoffR = () => {
+    
+     const [message, setMessage] = React.useState("Logging off...");
 
-    // Don't claim the user is logged off until the API has actually responded.
-    const [message, setMessage] = React.useState("Logging off...");
-
-    // RUN ONCE PATTERN: the API call happens right away, no button click.
-    React.useEffect(() => {
-
+     React.useEffect(() => {
         ajax_alt(
             "webUser/logoff",
 
-            function (obj) {
-                // The API puts "user is now logged off" in errorMsg.
-                setMessage(obj.errorMsg);
-            },
-
-            function (msg) {
-                setMessage("AJAX error: " + msg);
-            }
+            function (obj) { setMessage(obj.errorMsg); },
+            function (msg) { setMessage("AJAX error: " + msg); }
         );
     }, []);
 
@@ -25,5 +16,4 @@ const LogoffR = () => {
             {message}
         </div>
     );
-
-}; // function LogoffR
+};

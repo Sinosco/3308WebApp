@@ -50,9 +50,15 @@ function BlogR() {
             <h3>Database Connections</h3>                
                 <p> Click <a href="webUser/getAll" target="_blank">here</a> to view the web users.</p>
                 <p> Click <a href="Player_Info/getAll" target="_blank">here</a> to view the database of speedruns!</p>
+                <h3>WebAPI Error Documentation</h3>   
+                    <p>Click <a href="docs/WebAPIErrorDoc.pdf" target="_blank">here</a> to view the WebAPI Error Documentation.</p>             
             <h3>HW6 </h3>
                 <p>I had some trouble merging my homework with the lab files, there were lots of little bits I had forgotten or overlooked. I forgot to bring over ajax_alt.js and had forgotten how exactly we were pulling from our web_users from our db and copied over the users.json thinking it was needed. I forgot to copy over clicksort.css and even then I forgot to source and link them in my actual HTML file. Just a lot of small things.  </p>
                 <p>I had a LOT of trouble getting the sortable columns and filtering search to work. I originally tried to do it on my own using claude to help but struggled for an hour and a half before a friend told me there was a tutorial from which I ashamedly adapted that code into my own. I still had a lot of issues where filtering worked for one table and not the other, and sorting worked for the other table and not this one. I used a lot of claude to help figure out the fixes for this homework, including rewriting filterObjList and sortOrder. </p>
+            <h3>HW7</h3>
+                <p> The webUserController and WebUserView things were a bit daunting at first but after messing around a bit it made more sense I got it figured out. I needed help with doing the LogOff, ProfileR, and LogIn React things but after getting some help I was able to get the general "formula" and apply it to the other files. I also had some minor typing issues with LogIn vs Login which caused some troubles in index.html. Overall not a bad lab just a bit daunting. Looking back at previous assignments I had forgotten to include my WebAPI error doc which was originally part of the dropdown before I deleted it so I will add it below HW5 section.</p>
+            <h3>LogIn Testing API</h3>
+                <p>Click <a href="TestingAPI.html" target="_blank">here</a> to view the LogIn Testing API.</p>
         </div>
     );
 }

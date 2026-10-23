@@ -60,11 +60,9 @@ public class WebUserView {
 
 public static StringData login(DbConn dbc, String userEmail, String userPassword) {
  
-        // sd will have all of its fields initialized to ""
         StringData sd = new StringData();
  
         try {
-            // Same SELECT/JOIN as getAllUsers, but WHERE instead of ORDER BY.
             String sql = "SELECT web_user_id, user_email, user_password, user_image, membership_fee, birthday, "
                     + "web_user.user_role_id, user_role_type "
                     + "FROM web_user LEFT JOIN user_role ON web_user.user_role_id = user_role.user_role_id "
