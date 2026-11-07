@@ -59,6 +59,8 @@ function BlogR() {
                 <p> The webUserController and WebUserView things were a bit daunting at first but after messing around a bit it made more sense I got it figured out. I needed help with doing the LogOff, ProfileR, and LogIn React things but after getting some help I was able to get the general "formula" and apply it to the other files. I also had some minor typing issues with LogIn vs Login which caused some troubles in index.html. Overall not a bad lab just a bit daunting. Looking back at previous assignments I had forgotten to include my WebAPI error doc which was originally part of the dropdown before I deleted it so I will add it below HW5 section.</p>
             <h3>LogIn Testing API</h3>
                 <p>Click <a href="TestingAPI.html" target="_blank">here</a> to view the LogIn Testing API.</p>
+            <h3>HW8</h3>
+                <p> This lab had a lot of copy pasting which left me feeling uncertain whether or not I could just straight copy and paste files over or if there were minute things I would have to change in order to fit it for my project. </p>
         </div>
     );
 }
