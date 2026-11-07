@@ -1,0 +1,47 @@
+/* Styles the insert forms (New Web User, New Speedrun).
+   Each row of the form is:  prompt | input area | field level error message */
+
+.insertArea {
+    margin: 1rem auto;
+    max-width: 50rem;
+}
+
+.insertArea h3 {
+    text-align: center;
+}
+
+.insertArea table {
+    margin: auto; /* auto makes left and right margins the same, means centered */
+}
+
+.insertArea td {
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+}
+
+.insertArea input,
+.insertArea select {
+    width: 14rem;
+    max-width: 100%;
+    padding: 0.25rem;
+    box-sizing: border-box;
+}
+
+/* Field level and record level error messages. */
+.insertArea .error {
+    color: maroon;
+    max-width: 22rem;
+    overflow-wrap: anywhere; /* long technical (database) error messages must wrap */
+}
+
+/* mobile: stack prompt, input and error vertically so the page never scrolls sideways */
+@media only screen and (max-width: 38rem) {
+    .insertArea tr,
+    .insertArea td {
+        display: block;
+    }
+
+    .insertArea tr {
+        margin-bottom: 0.75rem;
+    }
+}
