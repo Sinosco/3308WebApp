@@ -19,6 +19,7 @@
     <link href="style/obj.css" rel="stylesheet" type="text/css" />
     <link href="style/style.css" rel="stylesheet" type="text/css" />
     <link href="style/clickSort.css" rel="stylesheet" type="text/css" />
+    <link href="style/insertArea.css" rel="stylesheet" type="text/css" />
 
     <!-- By referencing the Babel CDN, we can use JSX (HTML tags in JavaScript) 
          Asking for the latest minor version of babel major version 7. -->
@@ -66,6 +67,8 @@
     <!-- Any React scripts (which typically have JSX) needs script type="text/babel" -->
     <script type="text/babel" src="_ReactAjax/AjaxUsers.jsx"></script>
     <script type="text/babel" src="_ReactAjax/AjaxSpeedruns.jsx"></script>
+    <script type="text/babel" src="_ReactAjax/UserInsertR.jsx"></script>
+    <script type="text/babel" src="_ReactAjax/SpeedrunInsertR.jsx"></script>
 
     <script type="text/babel" src="_React_CGF/ProfileView.jsx"></script>
     <script type="text/babel" src="_ReactAjax/LogInR.jsx"></script>
@@ -105,7 +108,7 @@
                         <div class="dropDown">
                             <div class="dropHeader">Account</div>
                             <div class="dropContent">
-                                <NavLink to="/register">Register</NavLink> <br />
+                                <NavLink to="/userInsert">Register</NavLink> <br />
                                 <NavLink to="/login">Log In</NavLink> <br />
                                 <NavLink to="/logout">Log Out</NavLink> <br />
                                 <NavLink to="/profile">Get Profile</NavLink> <br />
@@ -141,7 +144,8 @@
                         <Route path="/blog" element={<BlogR />} />
                         <Route path="/otherReact" element={<AjaxSpeedruns url="Player_Info/getAll" />} />
                         <Route path="/usersReact" element={<AjaxUsers url="webUser/getAll" />} />
-
+                        <Route path="/userInsert" element={<UserInsertR />} />
+                        <Route path="/speedrunInsert" element={<SpeedrunInsertR />} />
                         <Route path="/login" element={<LoginR />} />
                         <Route path="/logout" element={<LogoffR />} />
                         <Route path="/profile" element={<ProfileR />} />
