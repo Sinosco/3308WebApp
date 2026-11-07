@@ -5,10 +5,13 @@ import java.sql.Connection;
 
 // Wrapper class for database connection. Constructor opens connection. Close
 // method closes connection.
+
 public class DbConn {
 
     private String errMsg = ""; // will remain "" unless error getting connection
     private java.sql.Connection conn = null;
+    
+    private static final String FRIENDLY_MSG = "Database unavailable, please try later. ";
 
     public DbConn() {
 
@@ -27,10 +30,10 @@ public class DbConn {
                 this.conn = DriverManager.getConnection(url);
 
             } catch (Exception e) { // cant get the connection
-                recordError("Problem getting connection:" + e.getMessage());
+                recordError(FRIENDLY_MSG + "Problem getting connection:" + e.getMessage());
             }
         } catch (Exception e) { // cant get the driver...
-            recordError("Problem getting driver:" + e.getMessage());
+            recordError(FRIENDLY_MSG + "Problem getting driver:" + e.getMessage());
         }
     } // method
 
