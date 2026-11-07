@@ -81,7 +81,6 @@ public class WebUserController {
         return Json.toJson(sd);
     }
 
-    //TODO check
     @GetMapping(value = "/webUser/insert", params = { "jsonData" }, produces = "application/json")
     public String insert(@RequestParam("jsonData") String jsonInsertData) {
 
@@ -97,11 +96,11 @@ public class WebUserController {
                 System.out.println("user data for insert (java obj): " + insertData.toString());
 
                 DbConn dbc = new DbConn();
-                errorMsgs.errorMsg = dbc.getErr(); // "" unless there is a db connection error
+                errorMsgs.errorMsg = dbc.getErr();
                 if (errorMsgs.errorMsg.length() == 0) { // db connection OK
                     errorMsgs = DbMods.insert(insertData, dbc);
                 }
-                dbc.close(); // EVERY code path that opens a db connection must close it
+                dbc.close();
             } catch (Exception e) {
                 String msg = "Could not convert jsonData to model.webUser.StringData obj: " +
                         jsonInsertData + " - or other error in controller for 'webUser/insert': " +

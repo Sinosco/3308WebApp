@@ -67,7 +67,6 @@ const AjaxSpeedruns = ({ url }) => {
         setFilteredList(dbList.slice());
     }
 
-    //TODO check
     function callInsert() { window.location.hash = "#/speedrunInsert"; }
 
     function sortByProp(propName, sortType) {

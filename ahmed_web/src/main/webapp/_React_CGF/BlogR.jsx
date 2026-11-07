@@ -60,7 +60,7 @@ function BlogR() {
             <h3>LogIn Testing API</h3>
                 <p>Click <a href="TestingAPI.html" target="_blank">here</a> to view the LogIn Testing API.</p>
             <h3>HW8</h3>
-                <p> This lab had a lot of copy pasting which left me feeling uncertain whether or not I could just straight copy and paste files over or if there were minute things I would have to change in order to fit it for my project. </p>
+                <p> This lab had a lot of copy pasting which left me feeling uncertain whether or not I could just straight copy and paste files over or if there were minute things I would have to change in order to fit it for my project. It was a bit of a jigsaw puzzle fitting certain segments of code into certain/new files but I eventually managed to get things working. The thing that gave me the most trouble was doing UserInsertR and SpeedrunInsertR, that and remembering to actually route to the files in index.html.</p>
         </div>
     );
 }

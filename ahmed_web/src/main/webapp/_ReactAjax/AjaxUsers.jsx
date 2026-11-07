@@ -63,7 +63,6 @@ const AjaxUsers = ({url}) => {
         setFilteredList(dbList.slice());
     }
 
-    //TODO check
     function callInsert() { window.location.hash = "#/userInsert"; }
 
     function sortByProp(propName, sortType) {

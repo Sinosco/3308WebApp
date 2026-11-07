@@ -1,4 +1,4 @@
-"use strict"; //TODO check
+"use strict";
 
 // Insert UI for the web_user table. All validation is done on the server side 
 // (webUser/insert Web API), this component just shows the server's error messages.
@@ -7,7 +7,7 @@ const UserInsertR = () => {
     console.log("UserInsertR running");
 
     // State Variable that holds all the user entered data. Each property of this 
-    // object is linked with one input tag. 
+    // object is linked with a textbox for user input. 
     const [userData, setUserData] = React.useState(
         {
             "webUserId": "",
@@ -23,7 +23,7 @@ const UserInsertR = () => {
     );
 
     // State Variable that holds all the error messages - field level 
-    // and record level (errorMsg).
+    // and form/record level (errorMsg).
     const [errorObj, setErrorObj] = React.useState(
         {
             "webUserId": "",
@@ -41,12 +41,10 @@ const UserInsertR = () => {
     // The list of roles that fills the User Role pick list (select tag).
     const [roleList, setRoleList] = React.useState([]);
 
-    // Stays true until the role list arrives (so we don't show an empty pick list) 
-    // and is true again while we wait for the insert API to answer. 
+    // By having this boolean state variable, we avoid rendering the component 
+    // before we are ready to do so. 
     const [isLoading, setIsLoading] = React.useState(true);
 
-    // Only the properties that are in model.webUser.StringData.java can be sent 
-    // (the server can't convert JSON that has property names it does not know). 
     const encodeUserInput = () => {
         var userInputObj = {
             "webUserId": userData.webUserId,
@@ -58,20 +56,21 @@ const UserInsertR = () => {
             "membershipFee": userData.membershipFee,
             "userRoleId": userData.userRoleId
         };
-        // encodeURIComponent (instead of encodeURI) also encodes characters like & and # 
-        // so a password or an image URL that has one of those can't break the URL.
+        console.log("userInputObj on next line");
+        console.log(userInputObj);
+        // turn the user input object into JSON then run that through 
+        // a URI encoder (needed for security on server side, prevents 
+        // server from hacks). 
+        //return encodeURIComponent(JSON.stringify(userInputObj));
         return encodeURIComponent(JSON.stringify(userInputObj));
     };
 
-    // If you just change the value of a State object's property, React does not know the 
-    // object changed. setProp returns a copy of the object with the one property changed. 
     const setProp = (obj, propName, propValue) => {
         var o = Object.assign({}, obj); // makes a copy of the object
         o[propName] = propValue;        // changes the property of the copy
         return o;
     };
 
-    // RUN ONCE PATTERN: get the list of roles (role/getAll) to fill the select tag.
     React.useEffect(() => {
         ajax_alt(
             "role/getAll",
@@ -186,8 +185,6 @@ const UserInsertR = () => {
                     <tr>
                         <td>Role</td>
                         <td>
-                            {/* option value is the role's PK (what we store as the FK), 
-                                option text is the role name (what the user sees). */}
                             <select value={userData.userRoleId}
                                 onChange={e => setUserData(setProp(userData, "userRoleId", e.target.value))}>
                                 {

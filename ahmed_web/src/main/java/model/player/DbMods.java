@@ -4,12 +4,6 @@ import dbUtils.*;
 
 public class DbMods { //clean up
 
-    /*
-     * Validates a time entered as H:MM:SS or HH:MM:SS (hours 0-23, minutes and
-     * seconds 0-59). Returns "" if the input is OK, otherwise an error message.
-     * If the field is not required, an empty entry is OK (the field is nullable).
-     * Validate.java has no method for "time" so this one lives here.
-     */
     public static String timeMsg(String s, boolean required) {
         if (s == null || s.trim().length() == 0) {
             return required ? "Input is required" : "";
@@ -20,7 +14,6 @@ public class DbMods { //clean up
         return "";
     }
 
-    // Returns null if the string is null or empty, else the trimmed string.
     private static String emptyToNull(String s) {
         if (s == null || s.trim().length() == 0) {
             return null;
@@ -28,11 +21,8 @@ public class DbMods { //clean up
         return s.trim();
     }
 
-    // Returns true if a row that matches every field of the user's entry is already
-    // in the database (checked before inserting so that the user gets a friendly message).
     private static boolean entryExists(StringData d, DbConn dbc) {
         try {
-            // <=> is MySQL's null safe equals (so null <=> null is true).
             String sql = "SELECT COUNT(*) FROM Player_Info WHERE "
                     + "Player_Username = ? "
                     + "AND Nether_Enter_Time <=> ? "
@@ -56,7 +46,7 @@ public class DbMods { //clean up
             return exists;
         } catch (Exception e) {
             System.out.println("entryExists() error: " + e.getMessage());
-            return false; // if this check fails, let the insert itself report any problem.
+            return false; // if this check fails, let the insert itself report problem.
         }
     }
 
@@ -68,19 +58,6 @@ public class DbMods { //clean up
 
         StringData errorMsgs = new StringData();
 
-        /*
-         * Useful to copy field names from StringData as a reference
-         * public String Player_id = "";             // auto-increment, not validated
-         * public String Player_Username = "";       // varChar 16, required
-         * public String Player_Skin = "";           // varChar 500, optional
-         * public String Nether_Enter_Time = "";     // time, optional (nullable)
-         * public String Stronghold_Enter_Time = ""; // time, optional (nullable)
-         * public String Final_Time = "";            // time, required
-         * public String Starting_Structure = "";    // varChar 20, optional
-         * public String Bastion_Type = "";          // varChar 15, optional
-         * public String web_user_id = "";           // foreign key (integer), required
-         */
-        // Validation
         errorMsgs.Player_Username = Validate.stringMsg(inputData.Player_Username, 16, true);
         errorMsgs.Player_Skin = Validate.stringMsg(inputData.Player_Skin, 500, false);
         errorMsgs.Nether_Enter_Time = timeMsg(inputData.Nether_Enter_Time, false);
@@ -108,8 +85,6 @@ public class DbMods { //clean up
                 return errorMsgs;
             }
 
-            // Start preparing SQL statement. PrepStatement.setString turns null into "",
-            // so NULLIF(?,'') is what turns an empty time back into a real null in the database.
             String sql = "INSERT INTO Player_Info (Player_Username, Player_Skin, Nether_Enter_Time, "
                     + "Stronghold_Enter_Time, Final_Time, Starting_Structure, Bastion_Type, web_user_id) "
                     + "VALUES (?,?,NULLIF(?,''),NULLIF(?,''),?,?,?,?)";

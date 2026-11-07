@@ -1,13 +1,10 @@
-"use strict"; //TODO check
+"use strict";
 
 // Insert UI for the Player_Info ("other") table. All validation is done on the server side 
-// (Player_Info/insert Web API), this component just shows the server's error messages.
 const SpeedrunInsertR = () => {
 
     console.log("SpeedrunInsertR running");
 
-    // State Variable that holds all the user entered data. Each property of this 
-    // object is linked with one input tag (or the select tag). 
     const [speedrunData, setSpeedrunData] = React.useState(
         {
             "Player_id": "",
@@ -23,8 +20,6 @@ const SpeedrunInsertR = () => {
         }
     );
 
-    // State Variable that holds all the error messages - field level 
-    // and record level (errorMsg).
     const [errorObj, setErrorObj] = React.useState(
         {
             "Player_id": "",
@@ -43,12 +38,8 @@ const SpeedrunInsertR = () => {
     // The list of web users that fills the Web User pick list (select tag).
     const [webUserList, setWebUserList] = React.useState([]);
 
-    // Stays true until the web user list arrives (so we don't show an empty pick list) 
-    // and is true again while we wait for the insert API to answer. 
     const [isLoading, setIsLoading] = React.useState(true);
 
-    // Only the properties that are in model.player.StringData.java can be sent 
-    // (the server can't convert JSON that has property names it does not know). 
     const encodeSpeedrunInput = () => {
         var speedrunInputObj = {
             "Player_id": speedrunData.Player_id,
@@ -61,20 +52,15 @@ const SpeedrunInsertR = () => {
             "Bastion_Type": speedrunData.Bastion_Type,
             "web_user_id": speedrunData.web_user_id
         };
-        // encodeURIComponent (instead of encodeURI) also encodes characters like & and # 
-        // so a skin URL that has one of those can't break the URL.
         return encodeURIComponent(JSON.stringify(speedrunInputObj));
     };
 
-    // If you just change the value of a State object's property, React does not know the 
-    // object changed. setProp returns a copy of the object with the one property changed. 
     const setProp = (obj, propName, propValue) => {
         var o = Object.assign({}, obj); // makes a copy of the object
         o[propName] = propValue;        // changes the property of the copy
         return o;
     };
 
-    // RUN ONCE PATTERN: get the list of web users (webUser/getAll) to fill the select tag.
     React.useEffect(() => {
         ajax_alt(
             "webUser/getAll",
@@ -99,8 +85,6 @@ const SpeedrunInsertR = () => {
         );
     }, []);
 
-    // Called when the user clicks Save. Sends the user's data to the insert API, which 
-    // answers with an object full of error messages (all "" if the record was inserted).
     const doInsert = () => {
         setIsLoading(true);
         ajax_alt(
@@ -197,8 +181,6 @@ const SpeedrunInsertR = () => {
                     <tr>
                         <td>Web User</td>
                         <td>
-                            {/* option value is the web user's PK (what we store as the FK), 
-                                option text is the user's email (what the user sees). */}
                             <select value={speedrunData.web_user_id}
                                 onChange={e => setSpeedrunData(setProp(speedrunData, "web_user_id", e.target.value))}>
                                 {

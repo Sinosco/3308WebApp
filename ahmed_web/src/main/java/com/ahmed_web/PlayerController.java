@@ -11,7 +11,7 @@ import model.player.*;
 import dbUtils.*;
 import view.playerView;
 
-@RestController //TODO check
+@RestController
 public class PlayerController {
 
     @RequestMapping(value = "/Player_Info/getAll", produces = "application/json")
@@ -24,12 +24,9 @@ public class PlayerController {
         dbc.close(); // EVERY code path that opens a db connection must close it
                      // (or else you have a database connection leak).
 
-        return Json.toJson(list); // convert sdl obj to JSON Format and return that.
+        return Json.toJson(list);
     }
 
-    // Insert API: receives one Player_Info StringData object (as JSON in the URL parameter 
-    // jsonData) and returns a StringData object full of field level and record level 
-    // error messages (all "" if the insert worked). 
     @GetMapping(value = "/Player_Info/insert", params = { "jsonData" }, produces = "application/json")
     public String insert(@RequestParam("jsonData") String jsonInsertData) {
 
