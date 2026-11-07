@@ -67,3 +67,9 @@
 .clickSort .nowrap {
     white-space:nowrap;
 }
+
+.clickSort h3 img {
+    width: 1.25rem;
+    vertical-align: middle;
+    cursor: pointer;
+}

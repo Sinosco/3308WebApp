@@ -63,6 +63,9 @@ const AjaxUsers = ({url}) => {
         setFilteredList(dbList.slice());
     }
 
+    //TODO check
+    function callInsert() { window.location.hash = "#/userInsert"; }
+
     function sortByProp(propName, sortType) {
         let listCopy = structuredClone(dbList);  
 
@@ -105,6 +108,8 @@ const AjaxUsers = ({url}) => {
         <div className="clickSort">
             <h3>
                 Filterable User List &nbsp;
+                <img src="icons/dark/blackInsert.png" title="Insert a new user" alt="Insert" onClick={callInsert} />
+                &nbsp;
                 <input value={filterInput} onChange={(e) => setFilterInput(e.target.value)} />
                 &nbsp;
                 <button onClick={() => doFilter(filterInput)}>Search</button>

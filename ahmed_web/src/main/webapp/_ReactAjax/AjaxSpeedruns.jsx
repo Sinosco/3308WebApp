@@ -1,4 +1,4 @@
-const AjaxSpeedruns = ({url}) => {
+const AjaxSpeedruns = ({ url }) => {
 
     console.log("AjaxSpeedruns running");
 
@@ -31,7 +31,7 @@ const AjaxSpeedruns = ({url}) => {
             // success function (anonymous)
             function (obj) {   // success function gets obj from ajax_alt
                 if (obj.dbError.length > 0) {
-                    setError({friendly: "Database currently unavailable.", technical: obj.dbError});
+                    setError({ friendly: "Database currently unavailable.", technical: obj.dbError });
                     setItems([]);
                 } else {
                     console.log("in AjaxSpeedruns, here is player info list (on the next line):");
@@ -45,11 +45,11 @@ const AjaxSpeedruns = ({url}) => {
 
             // failure function (also anonymous)
             function (msg) {       // failure function gets error message from ajax_alt
-                setError({friendly: "Unable to load the speedrun list from the server.", technical: "AJAX Error: " + msg}   );
+                setError({ friendly: "Unable to load the speedrun list from the server.", technical: "AJAX Error: " + msg });
                 setIsLoading(false); // set isLoading last to prevent premature rendering.
             }
 
-            
+
         );
     }, []);
 
@@ -67,8 +67,11 @@ const AjaxSpeedruns = ({url}) => {
         setFilteredList(dbList.slice());
     }
 
+    //TODO check
+    function callInsert() { window.location.hash = "#/speedrunInsert"; }
+
     function sortByProp(propName, sortType) {
-        let listCopy = structuredClone(dbList);  
+        let listCopy = structuredClone(dbList);
 
         jsSort(listCopy, propName, sortType);
         console.log("Sorted list is below");
@@ -109,6 +112,8 @@ const AjaxSpeedruns = ({url}) => {
         <div className="clickSort">
             <h3>
                 Filterable Speedrun List &nbsp;
+                <img src="icons/dark/blackInsert.png" title="Insert a new speedrun" alt="Insert" onClick={callInsert} />
+                &nbsp;
                 <input value={filterInput} onChange={(e) => setFilterInput(e.target.value)} />
                 &nbsp;
                 <button onClick={() => doFilter(filterInput)}>Search</button>
@@ -147,7 +152,7 @@ const AjaxSpeedruns = ({url}) => {
                 </tr>
 
                 {
-                    filteredList.map((listObj,index) =>
+                    filteredList.map((listObj, index) =>
                         <tr key={listObj.Player_id || index}>
                             <td className="skinSizing">{listObj.Player_Username}<br /><img src={listObj.Player_Skin} /></td>
                             <td className="textAlignRight">{listObj.Nether_Enter_Time}</td>
