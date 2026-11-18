@@ -67,8 +67,8 @@
     <!-- Any React scripts (which typically have JSX) needs script type="text/babel" -->
     <script type="text/babel" src="_ReactAjax/AjaxUsers.jsx"></script>
     <script type="text/babel" src="_ReactAjax/AjaxSpeedruns.jsx"></script>
-    <script type="text/babel" src="_ReactAjax/UserInsertR.jsx"></script>
-    <script type="text/babel" src="_ReactAjax/SpeedrunInsertR.jsx"></script>
+    <script type="text/babel" src="_ReactAjax/UserInsertOrUpdate.jsx"></script>
+    <script type="text/babel" src="_ReactAjax/SpeedrunInsertOrUpdate.jsx"></script>
 
     <script type="text/babel" src="_React_CGF/ProfileView.jsx"></script>
     <script type="text/babel" src="_ReactAjax/LogInR.jsx"></script>
@@ -81,10 +81,13 @@
 
         import React from "react";
         import ReactDOM from "react-dom/client";
-        import { HashRouter, Routes, Route, NavLink } from "react-router-dom";
+        import { HashRouter, Routes, Route, NavLink, useParams } from "react-router-dom";
 
         // Expose React globally so your JSX files can use it
         window.React = React;
+
+        // Same idea for useParams: lets the InsertOrUpdate components read the :id from the URL.
+        window.useParams = useParams;
 
         dropDownFW({
             dropHeaderStyle: "dropHeader",
@@ -144,8 +147,10 @@
                         <Route path="/blog" element={<BlogR />} />
                         <Route path="/otherReact" element={<AjaxSpeedruns url="Player_Info/getAll" />} />
                         <Route path="/usersReact" element={<AjaxUsers url="webUser/getAll" />} />
-                        <Route path="/userInsert" element={<UserInsertR />} />
-                        <Route path="/speedrunInsert" element={<SpeedrunInsertR />} />
+                        <Route path="/userInsert" element={<UserInsertOrUpdate />} />
+                        <Route path="/userUpdate/:id" element={<UserInsertOrUpdate />} />
+                        <Route path="/speedrunInsert" element={<SpeedrunInsertOrUpdate />} />
+                        <Route path="/speedrunUpdate/:id" element={<SpeedrunInsertOrUpdate />} />
                         <Route path="/login" element={<LoginR />} />
                         <Route path="/logout" element={<LogoffR />} />
                         <Route path="/profile" element={<ProfileR />} />

@@ -73,3 +73,10 @@
     vertical-align: middle;
     cursor: pointer;
 }
+
+/* The edit (pencil) icon link that is on every row of the ShowData tables. */
+.clickSort .clickLink {
+    width: 1rem;
+    vertical-align: middle;
+    cursor: pointer;
+}

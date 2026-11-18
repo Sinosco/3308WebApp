@@ -112,4 +112,56 @@ public class WebUserController {
         return Json.toJson(errorMsgs);
     }
 
+    // Returns one web_user record (as JSON) so the client can pre-fill the update UI.
+    @GetMapping(value = "/webUser/getById", params = { "userId" }, produces = "application/json")
+    public String getById(@RequestParam("userId") String userId) {
+
+        StringData sd = new StringData();
+        if (userId == null) {
+            sd.errorMsg = "Error: URL must be webUser/getById?userId=xx " +
+                    "where xx is the web_user_id of the desired web_user record.";
+        } else {
+            DbConn dbc = new DbConn();
+            sd.errorMsg = dbc.getErr(); // "" unless there is a db connection error
+            if (sd.errorMsg.length() == 0) { // db connection OK
+                sd = DbMods.getById(dbc, userId);
+            }
+            dbc.close(); // EVERY code path that opens a db connection must close it
+        }
+        return Json.toJson(sd);
+    }
+
+    // Keeps the @GetMapping short: get input, get db connection, convert JSON <-> POJO.
+    // All validation and SQL is in DbMods.update.
+    @GetMapping(value = "/webUser/update", params = { "jsonData" }, produces = "application/json")
+    public String update(@RequestParam("jsonData") String jsonUpdateData) {
+
+        StringData errorData = new StringData();
+
+        if ((jsonUpdateData == null) || jsonUpdateData.length() == 0) {
+            errorData.errorMsg = "Cannot update. No user data was provided in JSON format";
+        } else {
+            System.out.println("user data for update (JSON): " + jsonUpdateData);
+            try {
+                ObjectMapper mapper = new ObjectMapper();
+                StringData updateData = mapper.readValue(jsonUpdateData, StringData.class);
+                System.out.println("user data for update (java obj): " + updateData.toString());
+
+                DbConn dbc = new DbConn();
+                errorData.errorMsg = dbc.getErr(); // "" unless there is a db connection error
+                if (errorData.errorMsg.length() == 0) { // db connection OK
+                    errorData = DbMods.update(updateData, dbc);
+                }
+                dbc.close(); // EVERY code path that opens a db connection must close it
+            } catch (Exception e) {
+                String msg = "Could not convert jsonData to model.webUser.StringData obj: " +
+                        jsonUpdateData + " - or other error in controller for 'webUser/update': " +
+                        e.getMessage();
+                System.out.println(msg);
+                errorData.errorMsg += ". " + msg;
+            }
+        }
+        return Json.toJson(errorData);
+    }
+
 }

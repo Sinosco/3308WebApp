@@ -119,6 +119,7 @@ const AjaxUsers = ({url}) => {
 
             <table>
                 <tr>
+                    <th></th> {/* column for the edit icon */}
                     <th onClick={() => sortByProp("userEmail", "text")} >
                             <img src="icons/dark/blackDownSort.png" />Email
                         </th>
@@ -141,7 +142,13 @@ const AjaxUsers = ({url}) => {
                 {
                     filteredList.map((listObj, index) =>
                         <tr key={listObj.webUserId || index}>
-                            <td>{listObj.userEmail}</td>
+                            <td>
+                                <a href={"#/userUpdate/" + listObj.webUserId}>
+                                    <img src="icons/dark/blackUpdate.png" className="clickLink"
+                                        title="Edit this user" alt="Edit" />
+                                </a>
+                            </td>
+                            <td>{listObj.userEmail} ({listObj.webUserId})</td>
                             <td className="shadowImage textAlignCenter"><img src={listObj.userImage} /></td>
                             <td className="textAlignCenter">{listObj.birthday}</td>
                             <td className="textAlignRight">{listObj.membershipFee}</td>
@@ -158,4 +165,4 @@ const AjaxUsers = ({url}) => {
 
 
 
-}; // function AjaxUsers 
+}; // function AjaxUsers

@@ -121,6 +121,7 @@ const AjaxSpeedruns = ({ url }) => {
             </h3>
             <table>
                 <tr>
+                    <th></th> {/* column for the edit icon */}
                     <th onClick={() => sortByProp("Player_Username", "text")} >
                         <img src="icons/dark/blackDownSort.png" />Username
                     </th>
@@ -153,6 +154,12 @@ const AjaxSpeedruns = ({ url }) => {
                 {
                     filteredList.map((listObj, index) =>
                         <tr key={listObj.Player_id || index}>
+                            <td>
+                                <a href={"#/speedrunUpdate/" + listObj.Player_id}>
+                                    <img src="icons/dark/blackUpdate.png" className="clickLink"
+                                        title="Edit this speedrun" alt="Edit" />
+                                </a>
+                            </td>
                             <td className="skinSizing">{listObj.Player_Username}<br /><img src={listObj.Player_Skin} /></td>
                             <td className="textAlignRight">{listObj.Nether_Enter_Time}</td>
                             <td className="textAlignRight">{listObj.Stronghold_Enter_Time}</td>
