@@ -62,7 +62,7 @@ function BlogR() {
             <h3>HW8</h3>
                 <p> This lab had a lot of copy pasting which left me feeling uncertain whether or not I could just straight copy and paste files over or if there were minute things I would have to change in order to fit it for my project. It was a bit of a jigsaw puzzle fitting certain segments of code into certain/new files but I eventually managed to get things working. The thing that gave me the most trouble was doing UserInsertR and SpeedrunInsertR, that and remembering to actually route to the files in index.html.</p>
             <h3>HW9</h3>
-                <p> This lab pretty straightforward, just having to copy over the sample code I made from the lab and doing some minor tweaks. I was able to basically just reuse the insert pages for web and speedrun so it wasn't too bad. I did catch a mistake where you could put negative membership prices but I fixed it. I also fixed the Get Profile issue I had from last week.</p>
+                <p> This lab pretty straightforward, just having to copy over the sample code I made from the lab and doing some minor tweaks. I was able to basically just reuse the insert pages for web and speedrun so it wasn't too bad. I did catch a mistake where you could put negative membership prices but I fixed it. I also fixed the Get Profile issue I had from last</p>
         </div>
     );
 }
